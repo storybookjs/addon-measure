@@ -1,39 +1,49 @@
 /* eslint-env browser */
 import { useEffect, useGlobals } from "@storybook/addons";
+import { drawSelectedElement } from "./box-model/visualizer";
+import { clear } from "./box-model/canvas";
+
+let nodeAtPointerRef;
+let activeNode;
 
 export const withGlobals = (StoryFn, context) => {
-  const [{ myAddon }, updateGlobals] = useGlobals();
-  // Is the addon being used in the docs panel
+  const [{ redlinesEnabled }] = useGlobals();
+
   const isInDocs = context.viewMode === "docs";
 
   useEffect(() => {
-    // Execute your side effect here
-    // For example, to manipulate the contents of the preview
     const selectorId = isInDocs ? `#anchor--${context.id} .docs-story` : `root`;
+    const wrapper = document.getElementById(selectorId);
 
-    displayToolState(selectorId, { myAddon, isInDocs });
-  }, [myAddon]);
+    const onKeyDown = (e) => {
+      if (e.key === "Alt") {
+        activeNode = nodeAtPointerRef;
+        drawSelectedElement(activeNode);
+      }
+    };
+
+    const onMouseOver = (e) => {
+      e.stopPropagation();
+      nodeAtPointerRef = document.elementFromPoint(e.clientX, e.clientY);
+    };
+
+    const onResize = () => {
+      drawSelectedElement(activeNode);
+    };
+
+    if (redlinesEnabled) {
+      window.addEventListener("keydown", onKeyDown);
+      window.addEventListener("mouseover", onMouseOver);
+      window.addEventListener("resize", onResize);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mouseover", onMouseOver);
+      window.removeEventListener("resize", onResize);
+      clear();
+    };
+  }, [redlinesEnabled]);
 
   return StoryFn();
 };
-
-function displayToolState(selector, state) {
-  const rootElement = document.getElementById(selector);
-  let preElement = rootElement.querySelector("pre");
-
-  if (!preElement) {
-    preElement = document.createElement("pre");
-    preElement.style.setProperty("margin-top", "2rem");
-    preElement.style.setProperty("padding", "1rem");
-    preElement.style.setProperty("background-color", "#eee");
-    preElement.style.setProperty("border-radius", "3px");
-    preElement.style.setProperty("max-width", "600px");
-    rootElement.appendChild(preElement);
-  }
-
-  preElement.innerText = `This snippet is injected by the withGlobals decorator.
-It updates as the user interacts with the ⚡ tool in the toolbar above.
-
-${JSON.stringify(state, null, 2)}
-`;
-}
