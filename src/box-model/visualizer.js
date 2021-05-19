@@ -1,6 +1,6 @@
 import { draw } from "./canvas";
 
-const clrs = {
+const colors = {
   margin: "#f6b26ba8",
   border: "#ffe599a8",
   padding: "#93c47d8c",
@@ -11,134 +11,152 @@ function pxToNumber(px) {
   return parseInt(px.replace("px", ""));
 }
 
-function drawMarginBorderPadding(element) {
+function measureElement(element) {
+  const style = getComputedStyle(element);
+  let { top, left, right, bottom, width, height } =
+    element.getBoundingClientRect();
+
+  const {
+    marginTop,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+    borderBottomWidth,
+    borderTopWidth,
+    borderLeftWidth,
+    borderRightWidth,
+  } = style;
+
+  top = top + window.scrollY;
+  left = left + window.scrollX;
+  bottom = bottom + window.scrollY;
+  right = right + window.scrollX;
+
+  const margin = {
+    top: pxToNumber(marginTop),
+    bottom: pxToNumber(marginBottom),
+    left: pxToNumber(marginLeft),
+    right: pxToNumber(marginRight),
+  };
+
+  const padding = {
+    top: pxToNumber(paddingTop),
+    bottom: pxToNumber(paddingBottom),
+    left: pxToNumber(paddingLeft),
+    right: pxToNumber(paddingRight),
+  };
+
+  const border = {
+    top: pxToNumber(borderTopWidth),
+    bottom: pxToNumber(borderBottomWidth),
+    left: pxToNumber(borderLeftWidth),
+    right: pxToNumber(borderRightWidth),
+  };
+
+  return {
+    margin,
+    padding,
+    border,
+    top,
+    left,
+    bottom,
+    right,
+    width,
+    height,
+  };
+}
+
+function drawBoxModel(element) {
   return (context) => {
-    const style = getComputedStyle(element);
-    let { top, left, right, bottom, width, height } =
-      element.getBoundingClientRect();
-
-    const {
-      marginTop,
-      marginBottom,
-      marginLeft,
-      marginRight,
-      paddingTop,
-      paddingBottom,
-      paddingLeft,
-      paddingRight,
-      borderBottomWidth,
-      borderTopWidth,
-      borderLeftWidth,
-      borderRightWidth,
-      display,
-    } = style;
-
-    top = top + window.scrollY;
-    left = left + window.scrollX;
-    bottom = bottom + window.scrollY;
-    right = right + window.scrollX;
-
-    const numMarginTop = pxToNumber(marginTop);
-    const numMarginBottom = pxToNumber(marginBottom);
-    const numMarginLeft = pxToNumber(marginLeft);
-    const numMarginRight = pxToNumber(marginRight);
-    const numPaddingTop = pxToNumber(paddingTop);
-    const numPaddingBottom = pxToNumber(paddingBottom);
-    const numPaddingLeft = pxToNumber(paddingLeft);
-    const numPaddingRight = pxToNumber(paddingRight);
-    const numBorderTop = pxToNumber(borderTopWidth);
-    const numBorderBottom = pxToNumber(borderBottomWidth);
-    const numBorderLeft = pxToNumber(borderLeftWidth);
-    const numBorderRight = pxToNumber(borderRightWidth);
-
-    const marginHeight = height + numMarginBottom + numMarginTop;
+    const { margin, padding, border, width, height, top, left, bottom, right } =
+      measureElement(element);
 
     // DRAW MARGIN
-    context.fillStyle = clrs.margin;
+    const marginHeight = height + margin.bottom + margin.top;
+
+    context.fillStyle = colors.margin;
     // Top margin rect
-    context.fillRect(left, top - numMarginTop, width, numMarginTop);
+    context.fillRect(left, top - margin.top, width, margin.top);
     // Bottom margin rect
-    context.fillRect(left, bottom, width, numMarginBottom);
+    context.fillRect(left, bottom, width, margin.bottom);
     // Left margin rect
     context.fillRect(
-      left - numMarginLeft,
-      top - numMarginTop,
-      numMarginLeft,
+      left - margin.left,
+      top - margin.top,
+      margin.left,
       marginHeight
     );
     // Right margin rect
-    context.fillRect(right, top - numMarginTop, numMarginRight, marginHeight);
-
-    const paddingWidth = width - numBorderLeft - numBorderRight;
-    const paddingHeight =
-      height -
-      numPaddingBottom -
-      numPaddingBottom -
-      numBorderTop -
-      numBorderBottom;
+    context.fillRect(right, top - margin.top, margin.right, marginHeight);
 
     // DRAW PADDING
-    context.fillStyle = clrs.padding;
+    const paddingWidth = width - border.left - border.right;
+    const paddingHeight =
+      height - padding.bottom - padding.bottom - border.top - border.bottom;
+
+    context.fillStyle = colors.padding;
     // Top padding rect
     context.fillRect(
-      left + numBorderLeft,
-      top + numBorderTop,
+      left + border.left,
+      top + border.top,
       paddingWidth,
-      numPaddingTop
+      padding.top
     );
     // Bottom padding rect
     context.fillRect(
-      left + numBorderLeft,
-      bottom - numPaddingBottom - numBorderBottom,
+      left + border.left,
+      bottom - padding.bottom - border.bottom,
       paddingWidth,
-      numPaddingBottom
+      padding.bottom
     );
     // Left padding rect
     context.fillRect(
-      left + numBorderLeft,
-      top + numPaddingTop + numBorderTop,
-      numPaddingLeft,
+      left + border.left,
+      top + padding.top + border.top,
+      padding.left,
       paddingHeight
     );
     // Right padding rect
     context.fillRect(
-      right - numPaddingRight - numBorderRight,
-      top + numPaddingTop + numBorderTop,
-      numPaddingRight,
+      right - padding.right - border.right,
+      top + padding.top + border.top,
+      padding.right,
       paddingHeight
     );
 
-    const borderHeight = height - numBorderTop - numBorderBottom;
-
     // DRAW BORDER
-    context.fillStyle = clrs.border;
+    const borderHeight = height - border.top - border.bottom;
+
+    context.fillStyle = colors.border;
     // Top border rect
-    context.fillRect(left, top, width, numBorderTop);
+    context.fillRect(left, top, width, border.top);
     // Bottom border rect
-    context.fillRect(left, bottom - numBorderBottom, width, numBorderBottom);
+    context.fillRect(left, bottom - border.bottom, width, border.bottom);
     // Left border rect
-    context.fillRect(left, top + numBorderTop, numBorderLeft, borderHeight);
+    context.fillRect(left, top + border.top, border.left, borderHeight);
     // Right border rect
     context.fillRect(
-      right - numBorderRight,
-      top + numBorderTop,
-      numBorderRight,
+      right - border.right,
+      top + border.top,
+      border.right,
       borderHeight
     );
 
     // DRAW CONTENT
     const contentWidth =
-      width - numBorderLeft - numBorderRight - numPaddingLeft - numPaddingRight;
+      width - border.left - border.right - padding.left - padding.right;
     const contentHeight =
-      height -
-      numPaddingTop -
-      numPaddingBottom -
-      numBorderTop -
-      numBorderBottom;
-    context.fillStyle = clrs.content;
+      height - padding.top - padding.bottom - border.top - border.bottom;
+
+    context.fillStyle = colors.content;
+    // content rect
     context.fillRect(
-      left + numBorderLeft + numPaddingLeft,
-      top + numBorderTop + numPaddingTop,
+      left + border.left + padding.left,
+      top + border.top + padding.top,
       contentWidth,
       contentHeight
     );
@@ -146,5 +164,5 @@ function drawMarginBorderPadding(element) {
 }
 
 export function drawSelectedElement(element) {
-  draw(drawMarginBorderPadding(element));
+  draw(drawBoxModel(element));
 }

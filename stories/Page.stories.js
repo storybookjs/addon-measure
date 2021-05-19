@@ -1,11 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import { Page } from './Page';
-import * as HeaderStories from './Header.stories';
+import { Page } from "./Page";
+import * as HeaderStories from "./Header.stories";
 
 export default {
-  title: 'Example/Page',
+  title: "Example/Page",
   component: Page,
+  args: {
+    onLogin: () => {},
+    onLogout: () => {},
+    onCreateAccount: () => {},
+  },
 };
 
 const Template = (args) => <Page {...args} />;

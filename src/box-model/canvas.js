@@ -21,19 +21,20 @@ function getDocumentHeightAndWidth() {
 }
 
 function createCanvas() {
-  var canvas = document.createElement("canvas"); //Create a canvas element
-  //Set canvas width/height
+  var canvas = document.createElement("canvas");
+  // Set canvas width & height
   setCanvasWidthAndHeight(canvas);
-  //Position canvas
+  // Position canvas
   canvas.style.position = "absolute";
   canvas.style.left = "0";
   canvas.style.top = "0";
   canvas.style.zIndex = "100000";
-  canvas.style.pointerEvents = "none"; //Make sure you can click 'through' the canvas
-  document.body.appendChild(canvas); //Append canvas to body element
+  // Disable any user interactions
+  canvas.style.pointerEvents = "none";
+  document.body.appendChild(canvas);
   const context = canvas.getContext("2d");
-  context.globalAlpha = 0.5;
-  return { canvas, context: context };
+
+  return { canvas, context };
 }
 
 function setCanvasWidthAndHeight(canvas) {
