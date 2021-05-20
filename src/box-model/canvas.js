@@ -1,10 +1,3 @@
-const clrs = {
-  margin: "#f6b26ba8",
-  border: "#ffe599a8",
-  padding: "#93c47d8c",
-  content: "#6fa8dca8",
-};
-
 function getDocumentHeightAndWidth() {
   const body = document.body;
   const html = document.documentElement;
@@ -45,16 +38,32 @@ function setCanvasWidthAndHeight(canvas) {
   canvas.height = height;
 }
 
-const { canvas, context } = createCanvas();
+// const { canvas, context } = createCanvas();
+
+let state = createCanvas();
+
+export function init() {
+  if (!state.canvas) {
+    state = createCanvas();
+  }
+}
 
 export function clear() {
   const { height, width } = getDocumentHeightAndWidth();
-  context.clearRect(0, 0, width, height);
+  state.context.clearRect(0, 0, width, height);
 }
 
 export function draw(callback) {
   clear();
-  setCanvasWidthAndHeight(canvas);
+  setCanvasWidthAndHeight(state.canvas);
 
-  callback(context);
+  callback(state.context);
+}
+
+export function destroy() {
+  if (state.canvas) {
+    clear();
+    state.canvas.parentNode.removeChild(state.canvas);
+    state = {};
+  }
 }

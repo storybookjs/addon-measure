@@ -96,7 +96,7 @@ function drawBoxModel(element) {
     // DRAW PADDING
     const paddingWidth = width - border.left - border.right;
     const paddingHeight =
-      height - padding.bottom - padding.bottom - border.top - border.bottom;
+      height - padding.top - padding.bottom - border.top - border.bottom;
 
     context.fillStyle = colors.padding;
     // Top padding rect
