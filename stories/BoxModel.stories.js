@@ -40,8 +40,8 @@ MarginUniform.args = {
 };
 MarginUniform.storyName = "Margin uniform";
 
-export const MarginNonUniform = Template.bind({});
-MarginNonUniform.args = {
+export const MarginAsymmetric = Template.bind({});
+MarginAsymmetric.args = {
   render: (ref) => (
     <div
       ref={ref}
@@ -53,7 +53,7 @@ MarginNonUniform.args = {
     ></div>
   ),
 };
-MarginNonUniform.storyName = "Margin non-uniform";
+MarginAsymmetric.storyName = "Margin asymmetric";
 
 export const PaddingUniform = Template.bind({});
 PaddingUniform.args = {
@@ -63,8 +63,8 @@ PaddingUniform.args = {
 };
 PaddingUniform.storyName = "Padding uniform";
 
-export const PaddingNonUniform = Template.bind({});
-PaddingNonUniform.args = {
+export const PaddingAsymmetric = Template.bind({});
+PaddingAsymmetric.args = {
   render: (ref) => (
     <div
       ref={ref}
@@ -76,7 +76,7 @@ PaddingNonUniform.args = {
     ></div>
   ),
 };
-PaddingNonUniform.storyName = "Padding non-uniform";
+PaddingAsymmetric.storyName = "Padding asymmetric";
 
 export const BorderUniform = Template.bind({});
 BorderUniform.args = {
@@ -89,8 +89,8 @@ BorderUniform.args = {
 };
 BorderUniform.storyName = "Border uniform";
 
-export const BorderNonUniform = Template.bind({});
-BorderNonUniform.args = {
+export const BorderAsymmetric = Template.bind({});
+BorderAsymmetric.args = {
   render: (ref) => (
     <div
       ref={ref}
@@ -105,7 +105,7 @@ BorderNonUniform.args = {
     ></div>
   ),
 };
-BorderNonUniform.storyName = "Border non-uniform";
+BorderAsymmetric.storyName = "Border asymmetric";
 
 export const EverythingUniform = Template.bind({});
 EverythingUniform.args = {
@@ -124,8 +124,8 @@ EverythingUniform.args = {
 };
 EverythingUniform.storyName = "Everything uniform";
 
-export const EverythingNonUniform = Template.bind({});
-EverythingNonUniform.args = {
+export const EverythingAsymmetric = Template.bind({});
+EverythingAsymmetric.args = {
   render: (ref) => (
     <div
       ref={ref}
@@ -142,4 +142,36 @@ EverythingNonUniform.args = {
     ></div>
   ),
 };
-EverythingNonUniform.storyName = "Everything non-uniform";
+EverythingAsymmetric.storyName = "Everything asymmetric";
+
+export const EverythingAsymmetric2 = Template.bind({});
+EverythingAsymmetric2.args = {
+  render: (ref) => (
+    <div
+      ref={ref}
+      style={{
+        width: 256,
+        height: 256,
+        margin: "0 0 32px 64px",
+        padding: "64px 32px 16px 0",
+        borderTop: "8px solid #ccc",
+        borderRight: "16px solid #ccc",
+        borderLeft: "12px solid #ccc",
+      }}
+    ></div>
+  ),
+};
+EverythingAsymmetric2.storyName = "Everything asymmetric 2";
+
+export const DecimalSizing = Template.bind({});
+DecimalSizing.args = {
+  render: (ref) => (
+    <div
+      ref={ref}
+      style={{
+        width: 250.100006103515625,
+        height: 250.100006103515625,
+      }}
+    ></div>
+  ),
+};

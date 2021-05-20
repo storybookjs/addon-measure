@@ -1,5 +1,5 @@
 import { draw } from "./canvas";
-import { drawLabel } from "./labels";
+import { label } from "./labels";
 
 const colors = {
   margin: "#f6b26ba8",
@@ -10,6 +10,10 @@ const colors = {
 
 function pxToNumber(px) {
   return parseInt(px.replace("px", ""));
+}
+
+function round(value) {
+  return Number.isInteger(value) ? value : value.toFixed(2);
 }
 
 function measureElement(element) {
@@ -93,37 +97,29 @@ function drawMargin(
     marginHeight
   );
 
-  // Labels
-  return () => {
-    // Top
-    drawLabel(context, {
+  // Margin Labels
+  return [
+    {
       type: "margin",
-      text: margin.top,
-      x: left + width / 2,
-      y: top - margin.top / 2,
-    });
-    // Right margin rect
-    drawLabel(context, {
+      text: round(margin.top),
+      position: "top",
+    },
+    {
       type: "margin",
-      text: margin.right,
-      x: right + margin.right / 2,
-      y: top + height / 2,
-    });
-    // Bottom margin rect
-    drawLabel(context, {
+      text: round(margin.right),
+      position: "right",
+    },
+    {
       type: "margin",
-      text: margin.bottom,
-      x: left + width / 2,
-      y: bottom + margin.bottom / 2,
-    });
-    // Left margin rect
-    drawLabel(context, {
+      text: round(margin.bottom),
+      position: "bottom",
+    },
+    {
       type: "margin",
-      text: margin.left,
-      x: left - margin.left / 2,
-      y: top + height / 2,
-    });
-  };
+      text: round(margin.left),
+      position: "left",
+    },
+  ].filter((l) => l.text !== 0);
 }
 
 function drawPadding(
@@ -142,6 +138,13 @@ function drawPadding(
     paddingWidth,
     padding.top
   );
+  // Right padding rect
+  context.fillRect(
+    right - padding.right - border.right,
+    top + padding.top + border.top,
+    padding.right,
+    paddingHeight
+  );
   // Bottom padding rect
   context.fillRect(
     left + border.left,
@@ -156,13 +159,30 @@ function drawPadding(
     padding.left,
     paddingHeight
   );
-  // Right padding rect
-  context.fillRect(
-    right - padding.right - border.right,
-    top + padding.top + border.top,
-    padding.right,
-    paddingHeight
-  );
+
+  // Padding Labels
+  return [
+    {
+      type: "padding",
+      text: padding.top,
+      position: "top",
+    },
+    {
+      type: "padding",
+      text: padding.right,
+      position: "right",
+    },
+    {
+      type: "padding",
+      text: padding.bottom,
+      position: "bottom",
+    },
+    {
+      type: "padding",
+      text: padding.left,
+      position: "left",
+    },
+  ].filter((l) => l.text !== 0);
 }
 
 function drawBorder(
@@ -185,6 +205,30 @@ function drawBorder(
     border.right,
     borderHeight
   );
+
+  // Border Labels
+  return [
+    {
+      type: "border",
+      text: border.top,
+      position: "top",
+    },
+    {
+      type: "border",
+      text: border.right,
+      position: "right",
+    },
+    {
+      type: "border",
+      text: border.bottom,
+      position: "bottom",
+    },
+    {
+      type: "border",
+      text: border.left,
+      position: "left",
+    },
+  ].filter((l) => l.text !== 0);
 }
 
 function drawContent(context, { padding, border, width, height, top, left }) {
@@ -192,8 +236,6 @@ function drawContent(context, { padding, border, width, height, top, left }) {
     width - border.left - border.right - padding.left - padding.right;
   const contentHeight =
     height - padding.top - padding.bottom - border.top - border.bottom;
-  const x = left + border.left + padding.left;
-  const y = top + border.top + padding.top;
 
   context.fillStyle = colors.content;
   // content rect
@@ -203,33 +245,36 @@ function drawContent(context, { padding, border, width, height, top, left }) {
     contentWidth,
     contentHeight
   );
+
   // Dimension label
-  return () => {
-    drawLabel(context, {
+  return [
+    {
       type: "content",
-      text: `${contentWidth} x ${contentHeight}`,
-      x: x + contentWidth / 2,
-      y: y + contentHeight / 2,
-    });
-  };
+      position: "center",
+      text: `${round(contentWidth)} x ${round(contentHeight)}`,
+    },
+  ];
 }
 
 function drawBoxModel(element) {
   return (context) => {
-    const dimensions = measureElement(element);
+    if (element) {
+      const dimensions = measureElement(element);
+      const drawLabel = label(context, dimensions);
 
-    const drawMarginLabels = drawMargin(context, dimensions);
-    const drawPaddingLabels = drawPadding(context, dimensions);
-    const drawBorderLabels = drawBorder(context, dimensions);
-    const drawContentLabels = drawContent(context, dimensions);
+      const marginLabels = drawMargin(context, dimensions);
+      const paddingLabels = drawPadding(context, dimensions);
+      const borderLabels = drawBorder(context, dimensions);
+      const contentLabels = drawContent(context, dimensions);
 
-    drawMarginLabels();
-    // drawPaddingLabels;
-    // drawBorderLabels;
-    drawContentLabels();
+      contentLabels.forEach((l) => drawLabel(l));
+      paddingLabels.forEach((l) => drawLabel(l));
+      borderLabels.forEach((l) => drawLabel(l));
+      marginLabels.forEach((l) => drawLabel(l));
+    }
   };
 }
 
-export function drawSelectedElement(element) {
-  draw(drawBoxModel(element));
+export function drawSelectedElement(element, scale) {
+  draw(drawBoxModel(element), scale);
 }
