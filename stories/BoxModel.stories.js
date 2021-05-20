@@ -20,7 +20,16 @@ const Template = ({ render }) => {
     };
   }, [element]);
 
-  return render(element);
+  return (
+    <div
+      style={{
+        display: "inline-block",
+        padding: 64,
+      }}
+    >
+      {render(element)}
+    </div>
+  );
 };
 
 export const MarginUniform = Template.bind({});
@@ -52,7 +61,7 @@ PaddingUniform.args = {
     <div ref={ref} style={{ width: 256, height: 256, padding: 16 }}></div>
   ),
 };
-PaddingUniform.storyName = "Padding non-uniform";
+PaddingUniform.storyName = "Padding uniform";
 
 export const PaddingNonUniform = Template.bind({});
 PaddingNonUniform.args = {
@@ -78,7 +87,7 @@ BorderUniform.args = {
     ></div>
   ),
 };
-BorderUniform.storyName = "Border non-uniform";
+BorderUniform.storyName = "Border uniform";
 
 export const BorderNonUniform = Template.bind({});
 BorderNonUniform.args = {
@@ -113,7 +122,7 @@ EverythingUniform.args = {
     ></div>
   ),
 };
-EverythingUniform.storyName = "Everything non-uniform";
+EverythingUniform.storyName = "Everything uniform";
 
 export const EverythingNonUniform = Template.bind({});
 EverythingNonUniform.args = {
