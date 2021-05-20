@@ -22,13 +22,13 @@ function roundedRect(context, { x, y, w, h, r }) {
   context.closePath();
 }
 
-export function drawLabel(context, type, value, { x, y }) {
+export function drawLabel(context, { type, text, x, y }) {
   context.font = "600 14px monospace";
   context.textBaseline = "middle";
   context.textAlign = "center";
   const padding = 12;
 
-  const metrics = context.measureText(value);
+  const metrics = context.measureText(text);
   let actualHeight =
     metrics.fontBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
@@ -43,5 +43,5 @@ export function drawLabel(context, type, value, { x, y }) {
   context.fill();
 
   context.fillStyle = colors.text;
-  context.fillText(value, x, y);
+  context.fillText(text, x, y);
 }

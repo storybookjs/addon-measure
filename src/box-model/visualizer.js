@@ -81,6 +81,8 @@ function drawMargin(
   context.fillStyle = colors.margin;
   // Top margin rect
   context.fillRect(left, top - margin.top, width, margin.top);
+  // Right margin rect
+  context.fillRect(right, top - margin.top, margin.right, marginHeight);
   // Bottom margin rect
   context.fillRect(left, bottom, width, margin.bottom);
   // Left margin rect
@@ -90,8 +92,38 @@ function drawMargin(
     margin.left,
     marginHeight
   );
-  // Right margin rect
-  context.fillRect(right, top - margin.top, margin.right, marginHeight);
+
+  // Labels
+  return () => {
+    // Top
+    drawLabel(context, {
+      type: "margin",
+      text: margin.top,
+      x: left + width / 2,
+      y: top - margin.top / 2,
+    });
+    // Right margin rect
+    drawLabel(context, {
+      type: "margin",
+      text: margin.right,
+      x: right + margin.right / 2,
+      y: top + height / 2,
+    });
+    // Bottom margin rect
+    drawLabel(context, {
+      type: "margin",
+      text: margin.bottom,
+      x: left + width / 2,
+      y: bottom + margin.bottom / 2,
+    });
+    // Left margin rect
+    drawLabel(context, {
+      type: "margin",
+      text: margin.left,
+      x: left - margin.left / 2,
+      y: top + height / 2,
+    });
+  };
 }
 
 function drawPadding(
@@ -171,21 +203,30 @@ function drawContent(context, { padding, border, width, height, top, left }) {
     contentWidth,
     contentHeight
   );
-
-  drawLabel(context, "content", `${contentWidth} x ${contentHeight}`, {
-    x: x + contentWidth / 2,
-    y: y + contentHeight / 2,
-  });
+  // Dimension label
+  return () => {
+    drawLabel(context, {
+      type: "content",
+      text: `${contentWidth} x ${contentHeight}`,
+      x: x + contentWidth / 2,
+      y: y + contentHeight / 2,
+    });
+  };
 }
 
 function drawBoxModel(element) {
   return (context) => {
     const dimensions = measureElement(element);
 
-    drawMargin(context, dimensions);
-    drawPadding(context, dimensions);
-    drawBorder(context, dimensions);
-    drawContent(context, dimensions);
+    const drawMarginLabels = drawMargin(context, dimensions);
+    const drawPaddingLabels = drawPadding(context, dimensions);
+    const drawBorderLabels = drawBorder(context, dimensions);
+    const drawContentLabels = drawContent(context, dimensions);
+
+    drawMarginLabels();
+    // drawPaddingLabels;
+    // drawBorderLabels;
+    drawContentLabels();
   };
 }
 
