@@ -7,7 +7,7 @@ let nodeAtPointerRef;
 let activeNode;
 
 export const withGlobals = (StoryFn, context) => {
-  const [{ redlinesEnabled }] = useGlobals();
+  const [{ measureEnabled }] = useGlobals();
 
   const isInDocs = context.viewMode === "docs";
 
@@ -31,7 +31,7 @@ export const withGlobals = (StoryFn, context) => {
       drawSelectedElement(activeNode);
     };
 
-    if (redlinesEnabled) {
+    if (measureEnabled) {
       window.addEventListener("keydown", onKeyDown);
       window.addEventListener("mouseover", onMouseOver);
       window.addEventListener("resize", onResize);
@@ -43,7 +43,7 @@ export const withGlobals = (StoryFn, context) => {
       window.removeEventListener("resize", onResize);
       clear();
     };
-  }, [redlinesEnabled]);
+  }, [measureEnabled]);
 
   return StoryFn();
 };

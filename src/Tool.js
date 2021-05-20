@@ -4,20 +4,20 @@ import { Icons, IconButton } from "@storybook/components";
 import { TOOL_ID } from "./constants";
 
 export const Tool = () => {
-  const [{ redlinesEnabled }, updateGlobals] = useGlobals();
+  const [{ measureEnabled }, updateGlobals] = useGlobals();
 
   const toggleMyTool = useCallback(
     () =>
       updateGlobals({
-        redlinesEnabled: !redlinesEnabled,
+        measureEnabled: !measureEnabled,
       }),
-    [redlinesEnabled]
+    [measureEnabled]
   );
 
   return (
     <IconButton
       key={TOOL_ID}
-      active={redlinesEnabled}
+      active={measureEnabled}
       title="Enable my addon"
       onClick={toggleMyTool}
     >
