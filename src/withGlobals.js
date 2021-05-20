@@ -28,7 +28,7 @@ export const withGlobals = (StoryFn, context) => {
     };
 
     const onResize = () => {
-      drawSelectedElement(activeNode);
+      drawSelectedElement(activeNode, true);
     };
 
     if (measureEnabled) {

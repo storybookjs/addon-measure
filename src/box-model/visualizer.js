@@ -1,4 +1,5 @@
 import { draw } from "./canvas";
+import { drawLabel } from "./labels";
 
 const colors = {
   margin: "#f6b26ba8",
@@ -159,6 +160,8 @@ function drawContent(context, { padding, border, width, height, top, left }) {
     width - border.left - border.right - padding.left - padding.right;
   const contentHeight =
     height - padding.top - padding.bottom - border.top - border.bottom;
+  const x = left + border.left + padding.left;
+  const y = top + border.top + padding.top;
 
   context.fillStyle = colors.content;
   // content rect
@@ -168,6 +171,11 @@ function drawContent(context, { padding, border, width, height, top, left }) {
     contentWidth,
     contentHeight
   );
+
+  drawLabel(context, "content", `${contentWidth} x ${contentHeight}`, {
+    x: x + contentWidth / 2,
+    y: y + contentHeight / 2,
+  });
 }
 
 function drawBoxModel(element) {

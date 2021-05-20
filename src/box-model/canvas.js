@@ -14,9 +14,10 @@ function getDocumentHeightAndWidth() {
 }
 
 function createCanvas() {
-  var canvas = document.createElement("canvas");
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
   // Set canvas width & height
-  setCanvasWidthAndHeight(canvas);
+  setCanvasWidthAndHeight(canvas, context);
   // Position canvas
   canvas.style.position = "absolute";
   canvas.style.left = "0";
@@ -25,20 +26,23 @@ function createCanvas() {
   // Disable any user interactions
   canvas.style.pointerEvents = "none";
   document.body.appendChild(canvas);
-  const context = canvas.getContext("2d");
 
   return { canvas, context };
 }
 
-function setCanvasWidthAndHeight(canvas) {
+function setCanvasWidthAndHeight(canvas, context) {
   const { height, width } = getDocumentHeightAndWidth();
-  canvas.style.width = `${width}`;
-  canvas.style.height = `${height}`;
-  canvas.width = width;
-  canvas.height = height;
-}
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
 
-// const { canvas, context } = createCanvas();
+  // Scale
+  const scale = window.devicePixelRatio;
+  canvas.width = Math.floor(width * scale);
+  canvas.height = Math.floor(height * scale);
+
+  // Normalize coordinate system to use css pixels.
+  context.scale(scale, scale);
+}
 
 let state = createCanvas();
 
@@ -53,9 +57,11 @@ export function clear() {
   state.context.clearRect(0, 0, width, height);
 }
 
-export function draw(callback) {
+export function draw(callback, scale = false) {
   clear();
-  setCanvasWidthAndHeight(state.canvas);
+  if (scale) {
+    setCanvasWidthAndHeight(state.canvas, state.context);
+  }
 
   callback(state.context);
 }
