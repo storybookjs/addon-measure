@@ -1,23 +1,18 @@
-function getDocumentHeightAndWidth() {
+function getDocumentWidthAndHeight() {
   const body = document.body;
-  const html = document.documentElement;
 
-  const height = Math.max(
-    body.scrollHeight,
-    body.offsetHeight,
-    html.clientHeight,
-    html.scrollHeight,
-    html.offsetHeight
-  );
-  const width = document.body.offsetWidth;
-  return { height, width };
+  const height = Math.max(body.scrollHeight, body.offsetHeight);
+  const width = Math.max(body.scrollWidth, body.offsetWidth);
+  return { width, height };
 }
 
 function createCanvas() {
+  const { width, height } = getDocumentWidthAndHeight();
   const canvas = document.createElement("canvas");
+  canvas.id = "aaa";
   const context = canvas.getContext("2d");
   // Set canvas width & height
-  setCanvasWidthAndHeight(canvas, context);
+  setCanvasWidthAndHeight(canvas, context, { width, height });
   // Position canvas
   canvas.style.position = "absolute";
   canvas.style.left = "0";
@@ -27,11 +22,10 @@ function createCanvas() {
   canvas.style.pointerEvents = "none";
   document.body.appendChild(canvas);
 
-  return { canvas, context };
+  return { canvas, context, width, height };
 }
 
-function setCanvasWidthAndHeight(canvas, context) {
-  const { height, width } = getDocumentHeightAndWidth();
+function setCanvasWidthAndHeight(canvas, context, { width, height }) {
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
 
@@ -44,7 +38,7 @@ function setCanvasWidthAndHeight(canvas, context) {
   context.scale(scale, scale);
 }
 
-let state = createCanvas();
+let state = {};
 
 export function init() {
   if (!state.canvas) {
@@ -53,8 +47,9 @@ export function init() {
 }
 
 export function clear() {
-  const { height, width } = getDocumentHeightAndWidth();
-  state.context.clearRect(0, 0, width, height);
+  if (state.context) {
+    state.context.clearRect(0, 0, state.width, state.height);
+  }
 }
 
 export function draw(callback, scale = false) {

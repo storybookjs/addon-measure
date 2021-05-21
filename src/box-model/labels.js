@@ -78,36 +78,109 @@ function offset(type, position, { margin, border, padding }) {
   return { offsetX, offsetY };
 }
 
-export function label(context, dimensions) {
-  return ({ type, position = "center", text }) => {
-    let { x, y } = positionCoordinate(position, dimensions);
-    const { offsetX, offsetY } = offset(type, position, dimensions);
+function collide(a, b, position) {
+  return (
+    Math.abs(a.x - b.x) < Math.abs(a.w + b.w) / 2 &&
+    Math.abs(a.y - b.y) < Math.abs(a.h + b.h) / 2
+  );
+}
 
-    // Shift coordinate to center within
-    // the band of measurement
-    x += offsetX;
-    y += offsetY;
+function overlapAdjustment(position, currentRect, prevRect, padding) {
+  if (position === "top") {
+    currentRect.y = prevRect.y - prevRect.h - padding / 3;
+  } else if (position === "right") {
+    currentRect.x =
+      prevRect.x + prevRect.w / 2 + padding / 3 + currentRect.w / 2;
+  } else if (position === "bottom") {
+    currentRect.y = prevRect.y + prevRect.h + padding / 3;
+  } else if (position === "left") {
+    currentRect.x =
+      prevRect.x - prevRect.w / 2 - padding / 3 - currentRect.w / 2;
+  }
 
-    context.font = "600 14px monospace";
-    context.textBaseline = "middle";
-    context.textAlign = "center";
-    const padding = 12;
+  return { x: currentRect.x, y: currentRect.y };
+}
 
-    const metrics = context.measureText(text);
-    let actualHeight =
-      metrics.fontBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+export function drawLabel(
+  context,
+  dimensions,
+  { type, position = "center", text },
+  prevRect
+) {
+  let { x, y } = positionCoordinate(position, dimensions);
+  const { offsetX, offsetY } = offset(type, position, dimensions);
 
-    context.fillStyle = colors[type];
-    roundedRect(context, {
-      x,
-      y,
-      w: metrics.width + padding,
-      h: actualHeight + padding,
-      r: 3,
-    });
-    context.fill();
+  // Shift coordinate to center within
+  // the band of measurement
+  x += offsetX;
+  y += offsetY;
 
-    context.fillStyle = colors.text;
-    context.fillText(text, x, y);
-  };
+  context.font = "600 14px monospace";
+  context.textBaseline = "middle";
+  context.textAlign = "center";
+  const padding = 12;
+
+  const metrics = context.measureText(text);
+  let actualHeight =
+    metrics.fontBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+  const w = metrics.width + padding;
+  const h = actualHeight + padding;
+
+  // Adjust for overlap
+  if (prevRect && collide({ x, y, w, h }, prevRect)) {
+    const adjusted = overlapAdjustment(
+      position,
+      { x, y, w, h },
+      prevRect,
+      padding
+    );
+    x = adjusted.x;
+    y = adjusted.y;
+  }
+
+  context.fillStyle = colors[type];
+  roundedRect(context, { x, y, w, h, r: 3 });
+  context.fill();
+
+  context.fillStyle = colors.text;
+  context.fillText(text, x, y);
+
+  return { x, y, w, h };
+}
+
+function drawStack(context, dimensions, stack) {
+  const rects = [];
+  stack.forEach((l, idx) => {
+    const rect = drawLabel(context, dimensions, l, rects[idx - 1]);
+    rects[idx] = rect;
+  });
+}
+
+export function labelStacks(context, dimensions, labels) {
+  const stacks = labels.reduce((acc, l) => {
+    if (!acc.hasOwnProperty(l.position)) {
+      acc[l.position] = [];
+    }
+
+    acc[l.position].push(l);
+
+    return acc;
+  }, {});
+
+  if (stacks.top) {
+    drawStack(context, dimensions, stacks.top);
+  }
+  if (stacks.right) {
+    drawStack(context, dimensions, stacks.right);
+  }
+  if (stacks.bottom) {
+    drawStack(context, dimensions, stacks.bottom);
+  }
+  if (stacks.left) {
+    drawStack(context, dimensions, stacks.left);
+  }
+  if (stacks.center) {
+    drawStack(context, dimensions, stacks.center);
+  }
 }

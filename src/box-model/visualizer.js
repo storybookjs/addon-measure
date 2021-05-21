@@ -1,5 +1,5 @@
 import { draw } from "./canvas";
-import { label } from "./labels";
+import { labelStacks } from "./labels";
 
 const colors = {
   margin: "#f6b26ba8",
@@ -260,17 +260,18 @@ function drawBoxModel(element) {
   return (context) => {
     if (element) {
       const dimensions = measureElement(element);
-      const drawLabel = label(context, dimensions);
 
       const marginLabels = drawMargin(context, dimensions);
       const paddingLabels = drawPadding(context, dimensions);
       const borderLabels = drawBorder(context, dimensions);
       const contentLabels = drawContent(context, dimensions);
 
-      contentLabels.forEach((l) => drawLabel(l));
-      paddingLabels.forEach((l) => drawLabel(l));
-      borderLabels.forEach((l) => drawLabel(l));
-      marginLabels.forEach((l) => drawLabel(l));
+      labelStacks(context, dimensions, [
+        ...contentLabels,
+        ...paddingLabels,
+        ...borderLabels,
+        ...marginLabels,
+      ]);
     }
   };
 }

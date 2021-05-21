@@ -4,6 +4,9 @@ import { init, destroy } from "../src/box-model/canvas";
 
 export default {
   title: "Visualizations/BoxModel",
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 const Template = ({ render }) => {
@@ -35,7 +38,15 @@ const Template = ({ render }) => {
 export const MarginUniform = Template.bind({});
 MarginUniform.args = {
   render: (ref) => (
-    <div ref={ref} style={{ width: 256, height: 256, margin: 16 }}></div>
+    <div
+      ref={ref}
+      style={{
+        width: 256,
+        height: 256,
+        margin: 16,
+        outline: "1px solid black",
+      }}
+    ></div>
   ),
 };
 MarginUniform.storyName = "Margin uniform";
@@ -46,6 +57,7 @@ MarginAsymmetric.args = {
     <div
       ref={ref}
       style={{
+        outline: "1px solid black",
         width: 256,
         height: 256,
         margin: "16px 32px 64px 8px",
@@ -58,7 +70,15 @@ MarginAsymmetric.storyName = "Margin asymmetric";
 export const PaddingUniform = Template.bind({});
 PaddingUniform.args = {
   render: (ref) => (
-    <div ref={ref} style={{ width: 256, height: 256, padding: 16 }}></div>
+    <div
+      ref={ref}
+      style={{
+        width: 256,
+        height: 256,
+        padding: 16,
+        outline: "1px solid black",
+      }}
+    ></div>
   ),
 };
 PaddingUniform.storyName = "Padding uniform";
@@ -69,6 +89,7 @@ PaddingAsymmetric.args = {
     <div
       ref={ref}
       style={{
+        outline: "1px solid black",
         width: 256,
         height: 256,
         padding: "16px 32px 64px 8px",
@@ -83,7 +104,12 @@ BorderUniform.args = {
   render: (ref) => (
     <div
       ref={ref}
-      style={{ width: 256, height: 256, border: "8px solid #ccc" }}
+      style={{
+        outline: "1px solid black",
+        width: 256,
+        height: 256,
+        border: "8px solid transparent",
+      }}
     ></div>
   ),
 };
@@ -95,12 +121,13 @@ BorderAsymmetric.args = {
     <div
       ref={ref}
       style={{
+        outline: "1px solid black",
         width: 256,
         height: 256,
-        borderTop: "8px solid #ccc",
-        borderRight: "16px solid #ccc",
-        borderBottom: "32px solid #ccc",
-        borderLeft: "12px solid #ccc",
+        borderTop: "8px solid transparent",
+        borderRight: "16px solid transparent",
+        borderBottom: "32px solid transparent",
+        borderLeft: "12px solid transparent",
       }}
     ></div>
   ),
@@ -113,9 +140,10 @@ EverythingUniform.args = {
     <div
       ref={ref}
       style={{
+        outline: "1px solid black",
         width: 256,
         height: 256,
-        border: "8px solid #ccc",
+        border: "8px solid transparent",
         padding: 16,
         margin: 32,
       }}
@@ -130,14 +158,15 @@ EverythingAsymmetric.args = {
     <div
       ref={ref}
       style={{
+        outline: "1px solid black",
         width: 256,
         height: 256,
         margin: "8px 16px 32px 64px",
         padding: "64px 32px 16px 8px",
-        borderTop: "8px solid #ccc",
-        borderRight: "16px solid #ccc",
-        borderBottom: "32px solid #ccc",
-        borderLeft: "12px solid #ccc",
+        borderTop: "8px solid transparent",
+        borderRight: "16px solid transparent",
+        borderBottom: "32px solid transparent",
+        borderLeft: "12px solid transparent",
       }}
     ></div>
   ),
@@ -150,13 +179,14 @@ EverythingAsymmetric2.args = {
     <div
       ref={ref}
       style={{
+        outline: "1px solid black",
         width: 256,
         height: 256,
         margin: "0 0 32px 64px",
         padding: "64px 32px 16px 0",
-        borderTop: "8px solid #ccc",
-        borderRight: "16px solid #ccc",
-        borderLeft: "12px solid #ccc",
+        borderTop: "8px solid transparent",
+        borderRight: "16px solid transparent",
+        borderLeft: "12px solid transparent",
       }}
     ></div>
   ),
@@ -169,6 +199,7 @@ DecimalSizing.args = {
     <div
       ref={ref}
       style={{
+        outline: "1px solid black",
         width: 250.100006103515625,
         height: 250.100006103515625,
       }}

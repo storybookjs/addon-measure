@@ -1,7 +1,7 @@
 /* eslint-env browser */
 import { useEffect, useGlobals } from "@storybook/addons";
 import { drawSelectedElement } from "./box-model/visualizer";
-import { clear } from "./box-model/canvas";
+import { init, destroy, clear } from "./box-model/canvas";
 
 let nodeAtPointerRef;
 let activeNode;
@@ -32,6 +32,7 @@ export const withGlobals = (StoryFn, context) => {
     };
 
     if (measureEnabled) {
+      init();
       window.addEventListener("keydown", onKeyDown);
       window.addEventListener("mouseover", onMouseOver);
       window.addEventListener("resize", onResize);
@@ -41,7 +42,7 @@ export const withGlobals = (StoryFn, context) => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("mouseover", onMouseOver);
       window.removeEventListener("resize", onResize);
-      clear();
+      destroy();
     };
   }, [measureEnabled]);
 
