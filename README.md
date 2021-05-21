@@ -1,21 +1,10 @@
-# Storybook Addon Kit
+# Storybook Addon Measure
 
-Simplify the creation of Storybook addons
-
-- 📝 Live-editing in development
-- ⚛️ React/JSX support
-- 📦 Transpiling and bundling with Babel
-- 🏷 Plugin metadata
-- 🚢 Release management with [Auto](https://github.com/intuit/auto)
-- 🧺 Boilerplate and sample code
+![](https://user-images.githubusercontent.com/42671/119181822-2072cd80-ba40-11eb-8fb8-0c685b96af7d.gif)
 
 ## Getting Started
 
-Click the **Use this template** button to get started.
-
-![](https://user-images.githubusercontent.com/42671/106809879-35b32000-663a-11eb-9cdc-89f178b5273f.gif)
-
-Clone your repository and install dependencies.
+Clone the repository and install dependencies.
 
 ```sh
 npm install
@@ -25,32 +14,6 @@ npm install
 
 - `npm run start` runs babel in watch mode and starts Storybook
 - `npm run build` build and package your addon code
-
-## What's included?
-
-![Demo](https://user-images.githubusercontent.com/42671/107857205-e7044380-6dfa-11eb-8718-ad02e3ba1a3f.gif)
-
-The addon code lives in `src`. It demonstrates all core addon related concepts. The three [UI paradigms](https://storybook.js.org/docs/react/addons/addon-types#ui-based-addons)
-
-- `src/Tool.js`
-- `src/Panel.js`
-- `src/Tab.js`
-
-Which, along with the addon itself, are registered in `src/preset/manager.js`.
-
-Managing State and interacting with a story:
-
-- `src/withGlobals.js` & `src/Tool.js` demonstrates how to use `useGlobals` to manage global state and modify the contents of a Story.
-- `src/withRoundTrip.js` & `src/Panel.js` demonstrates two-way communication using channels.
-- `src/Tab.js` demonstrates how to use `useParameter` to access the current story's parameters.
-
-Your addon might use one or more of these patterns. Feel free to delete unused code. Update `src/preset/manager.js` and `src/preset/preview.js` accordingly.
-
-Lastly, configure you addon name in `src/constants.js`.
-
-### Metadata
-
-Storybook addons are listed in the [catalog](https://storybook.js.org/addons) and distributed via npm. The catalog is populated by querying npm's registry for Storybook-specific metadata in `package.json`. This project has been configured with sample data. Learn more about available options in the [Addon metadata docs](https://storybook.js.org/docs/react/addons/addon-catalog#addon-metadata).
 
 ## Release Management
 
