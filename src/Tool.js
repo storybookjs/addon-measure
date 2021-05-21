@@ -6,7 +6,7 @@ import { TOOL_ID } from "./constants";
 export const Tool = () => {
   const [{ measureEnabled }, updateGlobals] = useGlobals();
 
-  const toggleMyTool = useCallback(
+  const toggleMeasure = useCallback(
     () =>
       updateGlobals({
         measureEnabled: !measureEnabled,
@@ -18,14 +18,10 @@ export const Tool = () => {
     <IconButton
       key={TOOL_ID}
       active={measureEnabled}
-      title="Enable my addon"
-      onClick={toggleMyTool}
+      title="Enable measure"
+      onClick={toggleMeasure}
     >
-      {/*
-        Checkout https://next--storybookjs.netlify.app/official-storybook/?path=/story/basics-icon--labels
-        for the full list of icons
-      */}
-      <Icons icon="lightning" />
+      <Icons icon="component" />
     </IconButton>
   );
 };
