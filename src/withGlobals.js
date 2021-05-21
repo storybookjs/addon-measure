@@ -15,13 +15,19 @@ export const withGlobals = (StoryFn, context) => {
       drawSelectedElement(nodeAtPointerRef);
     };
 
+    const onResize = () => {
+      drawSelectedElement(nodeAtPointerRef, true);
+    };
+
     if (measureEnabled) {
       init();
       window.addEventListener("mouseover", onMouseOver);
+      window.addEventListener("resize", onResize);
     }
 
     return () => {
       window.removeEventListener("mouseover", onMouseOver);
+      window.removeEventListener("resize", onResize);
       destroy();
     };
   }, [measureEnabled]);
