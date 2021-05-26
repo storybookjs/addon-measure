@@ -5,7 +5,7 @@ import { init, destroy, clear } from "./box-model/canvas";
 
 let nodeAtPointerRef;
 
-export const withMeasure = (StoryFn, context) => {
+export const withMeasure = (StoryFn) => {
   const [{ measureEnabled }, updateGlobals] = useGlobals();
 
   useEffect(() => {

@@ -1,19 +1,48 @@
+<img src="https://user-images.githubusercontent.com/42671/119589951-dbcd9600-bda1-11eb-9227-078f3cfc1e74.png" width="200" height="200">
+
 # Storybook Addon Measure
 
-![](https://user-images.githubusercontent.com/42671/119181822-2072cd80-ba40-11eb-8fb8-0c685b96af7d.gif)
+Storybook addon for inspecting layouts and visualizing the box model.
 
-## Getting Started
+1. Hold down the modifier key:
+
+- MacOS: <kbd>⌥ Option</kbd>
+- Windows: <kbd>Alt</kbd>
+
+2. Hover over a DOM node
+
+3. Storybook will display the dimensions of the selected element—margin, padding, border, width and height—in pixels.
+
+![](https://user-images.githubusercontent.com/42671/119589961-dff9b380-bda1-11eb-9550-7ae28bc70bf4.gif)
+
+## Usage
+
+Install the addon:
+
+```sh
+npm i -D @storybook/addon-measure
+```
+
+Then, add `"@storybook/addon-measure"` to the addons array in your `.storybook/main.js`:
+
+```js
+module.exports = {
+  addons: ["@storybook/addon-measure"],
+};
+```
+
+## Contributing
+
+### Development scripts
 
 Clone the repository and install dependencies.
 
 ```sh
-npm install
+yarn
 ```
 
-### Development scripts
-
-- `npm run start` runs babel in watch mode and starts Storybook
-- `npm run build` build and package your addon code
+- `yarn start` runs babel in watch mode and starts Storybook
+- `yarn build` build and package your addon code
 
 ## Release Management
 
