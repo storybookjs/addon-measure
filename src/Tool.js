@@ -41,7 +41,7 @@ export const Tool = () => {
       title="Enable measure"
       onClick={toggleMeasure}
     >
-      <Icons icon="component" />
+      <Icons icon="ruler" />
     </IconButton>
   );
 };

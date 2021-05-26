@@ -17,13 +17,15 @@ Storybook addon for inspecting layouts and visualizing the box model.
 
 ## Usage
 
-Install the addon:
+1. This addon requires Storybook 6.3 or later. Install the latest with `npx sb upgrade --prerelease`
+
+2. Install the addon:
 
 ```sh
 npm i -D @storybook/addon-measure
 ```
 
-Then, add `"@storybook/addon-measure"` to the addons array in your `.storybook/main.js`:
+3. Add `"@storybook/addon-measure"` to the addons array in your `.storybook/main.js`:
 
 ```js
 module.exports = {
