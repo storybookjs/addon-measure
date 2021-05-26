@@ -8,6 +8,6 @@
  *
  * https://storybook.js.org/docs/react/writing-stories/decorators#gatsby-focus-wrapper
  */
-import { withGlobals } from "../withGlobals";
+import { withMeasure } from "../withMeasure";
 
-export const decorators = [withGlobals];
+export const decorators = [withMeasure];

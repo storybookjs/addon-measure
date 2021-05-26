@@ -1,4 +1,4 @@
-export const ADDON_ID = "storybook/measureEnabled-addon";
+export const ADDON_ID = "storybook/measure-addon";
 export const TOOL_ID = `${ADDON_ID}/tool`;
 
 export const EVENTS = {

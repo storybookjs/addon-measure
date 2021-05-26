@@ -23,14 +23,14 @@
     "clean": "rimraf ./dist",
     "buildBabel": "babel ./src --out-dir ./dist --extensions \".js,.jsx,.ts,.tsx\"",
     "buildTsc": "tsc --declaration --emitDeclarationOnly --outDir ./dist",
-    "build": "concurrently \"npm run buildBabel\" \"npm run buildTsc\"",
-    "build:watch": "concurrently \"npm run buildBabel -- --watch\" \"npm run buildTsc -- --watch\"",
+    "build": "concurrently \"yarn run buildBabel\" \"yarn run buildTsc\"",
+    "build:watch": "concurrently \"yarn run buildBabel -- --watch\" \"yarn run buildTsc -- --watch\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
-    "start": "concurrently \"npm run storybook -- --no-manager-cache --quiet\" \"npm run build:watch\"",
+    "start": "concurrently \"yarn run storybook -- --no-manager-cache --quiet\" \"yarn run build:watch\"",
     "build-storybook": "build-storybook",
     "prerelease": "node check-metadata.js",
-    "release": "npm run build && auto shipit"
+    "release": "yarn run build && auto shipit"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
