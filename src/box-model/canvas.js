@@ -9,7 +9,6 @@ function getDocumentWidthAndHeight() {
 function createCanvas() {
   const { width, height } = getDocumentWidthAndHeight();
   const canvas = document.createElement("canvas");
-  canvas.id = "aaa";
   const context = canvas.getContext("2d");
   // Set canvas width & height
   setCanvasWidthAndHeight(canvas, context, { width, height });

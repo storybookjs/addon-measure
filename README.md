@@ -33,6 +33,12 @@ module.exports = {
 };
 ```
 
+### Inspiration
+
+- [Inspx](https://github.com/raunofreiberg/inspx) by Rauno Freiberg
+- [Aaron Westbrook's script](https://gist.github.com/awestbro/e668c12662ad354f02a413205b65fce7)
+- [Visbug](https://visbug.web.app/) from the Chrome team
+
 ## Contributing
 
 ### Development scripts
