@@ -9,6 +9,7 @@ function getDocumentWidthAndHeight() {
 function createCanvas() {
   const { width, height } = getDocumentWidthAndHeight();
   const canvas = document.createElement("canvas");
+  canvas.id = "storybook-addon-measure";
   const context = canvas.getContext("2d");
   // Set canvas width & height
   setCanvasWidthAndHeight(canvas, context, { width, height });
