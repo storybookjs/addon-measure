@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { drawSelectedElement } from "../src/box-model/visualizer";
-import { init, destroy } from "../src/box-model/canvas";
+import React from "react";
+import { Visualization } from "./Visualization";
 
 export default {
   title: "Visualizations/BoxModel",
@@ -9,31 +8,7 @@ export default {
   },
 };
 
-const Template = ({ render }) => {
-  const element = useRef(null);
-
-  useEffect(() => {
-    if (element.current) {
-      init();
-      drawSelectedElement(element.current);
-    }
-
-    return () => {
-      destroy();
-    };
-  }, [element]);
-
-  return (
-    <div
-      style={{
-        display: "inline-block",
-        padding: 64,
-      }}
-    >
-      {render(element)}
-    </div>
-  );
-};
+const Template = (args) => <Visualization {...args} />;
 
 export const MarginUniform = Template.bind({});
 MarginUniform.args = {
@@ -49,7 +24,6 @@ MarginUniform.args = {
     ></div>
   ),
 };
-MarginUniform.storyName = "Margin uniform";
 
 export const MarginAsymmetric = Template.bind({});
 MarginAsymmetric.args = {
@@ -65,7 +39,6 @@ MarginAsymmetric.args = {
     ></div>
   ),
 };
-MarginAsymmetric.storyName = "Margin asymmetric";
 
 export const PaddingUniform = Template.bind({});
 PaddingUniform.args = {
@@ -81,7 +54,6 @@ PaddingUniform.args = {
     ></div>
   ),
 };
-PaddingUniform.storyName = "Padding uniform";
 
 export const PaddingAsymmetric = Template.bind({});
 PaddingAsymmetric.args = {
@@ -97,7 +69,6 @@ PaddingAsymmetric.args = {
     ></div>
   ),
 };
-PaddingAsymmetric.storyName = "Padding asymmetric";
 
 export const BorderUniform = Template.bind({});
 BorderUniform.args = {
@@ -113,7 +84,6 @@ BorderUniform.args = {
     ></div>
   ),
 };
-BorderUniform.storyName = "Border uniform";
 
 export const BorderAsymmetric = Template.bind({});
 BorderAsymmetric.args = {
@@ -132,66 +102,6 @@ BorderAsymmetric.args = {
     ></div>
   ),
 };
-BorderAsymmetric.storyName = "Border asymmetric";
-
-export const EverythingUniform = Template.bind({});
-EverythingUniform.args = {
-  render: (ref) => (
-    <div
-      ref={ref}
-      style={{
-        outline: "1px solid black",
-        width: 256,
-        height: 256,
-        border: "8px solid transparent",
-        padding: 16,
-        margin: 32,
-      }}
-    ></div>
-  ),
-};
-EverythingUniform.storyName = "Everything uniform";
-
-export const EverythingAsymmetric = Template.bind({});
-EverythingAsymmetric.args = {
-  render: (ref) => (
-    <div
-      ref={ref}
-      style={{
-        outline: "1px solid black",
-        width: 256,
-        height: 256,
-        margin: "8px 16px 32px 64px",
-        padding: "64px 32px 16px 8px",
-        borderTop: "8px solid transparent",
-        borderRight: "16px solid transparent",
-        borderBottom: "32px solid transparent",
-        borderLeft: "12px solid transparent",
-      }}
-    ></div>
-  ),
-};
-EverythingAsymmetric.storyName = "Everything asymmetric";
-
-export const EverythingAsymmetric2 = Template.bind({});
-EverythingAsymmetric2.args = {
-  render: (ref) => (
-    <div
-      ref={ref}
-      style={{
-        outline: "1px solid black",
-        width: 256,
-        height: 256,
-        margin: "0 0 32px 64px",
-        padding: "64px 32px 16px 0",
-        borderTop: "8px solid transparent",
-        borderRight: "16px solid transparent",
-        borderLeft: "12px solid transparent",
-      }}
-    ></div>
-  ),
-};
-EverythingAsymmetric2.storyName = "Everything asymmetric 2";
 
 export const DecimalSizing = Template.bind({});
 DecimalSizing.args = {

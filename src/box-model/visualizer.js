@@ -11,12 +11,35 @@ const colors = {
   content: "#6fa8dca8",
 };
 
+const SMALL_NODE_SIZE = 40;
+
 function pxToNumber(px) {
   return parseInt(px.replace("px", ""));
 }
 
 function round(value) {
   return Number.isInteger(value) ? value : value.toFixed(2);
+}
+
+function floatingAlignment(extremities) {
+  const windowExtremities = {
+    top: window.scrollY,
+    bottom: window.scrollY + window.innerHeight,
+    left: window.scrollX,
+    right: window.scrollX + window.innerWidth,
+  };
+
+  const distances = {
+    top: Math.abs(windowExtremities.top - extremities.top),
+    bottom: Math.abs(windowExtremities.bottom - extremities.bottom),
+    left: Math.abs(windowExtremities.left - extremities.left),
+    right: Math.abs(windowExtremities.right - extremities.right),
+  };
+
+  return {
+    x: distances.left > distances.right ? "left" : "right",
+    y: distances.top > distances.bottom ? "top" : "bottom",
+  };
 }
 
 function measureElement(element) {
@@ -65,6 +88,13 @@ function measureElement(element) {
     right: pxToNumber(borderRightWidth),
   };
 
+  const extremities = {
+    top: top - margin.top,
+    bottom: bottom + margin.bottom,
+    left: left - margin.left,
+    right: right + margin.right,
+  };
+
   return {
     margin,
     padding,
@@ -75,6 +105,8 @@ function measureElement(element) {
     right,
     width,
     height,
+    extremities,
+    floatingAlignment: floatingAlignment(extremities),
   };
 }
 
@@ -269,12 +301,16 @@ function drawBoxModel(element) {
       const borderLabels = drawBorder(context, dimensions);
       const contentLabels = drawContent(context, dimensions);
 
-      labelStacks(context, dimensions, [
-        ...contentLabels,
-        ...paddingLabels,
-        ...borderLabels,
-        ...marginLabels,
-      ]);
+      const externalLabels =
+        dimensions.width <= SMALL_NODE_SIZE * 2 ||
+        dimensions.height <= SMALL_NODE_SIZE;
+
+      labelStacks(
+        context,
+        dimensions,
+        [...contentLabels, ...paddingLabels, ...borderLabels, ...marginLabels],
+        externalLabels
+      );
     }
   };
 }

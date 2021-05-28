@@ -1,9 +1,16 @@
 import { useEffect } from "react";
 
-export function useHotKey(updateGlobals, where) {
+function focusInInput(event) {
+  return (
+    /input|textarea/i.test(event.target.tagName) ||
+    event.target.getAttribute("contenteditable") !== null
+  );
+}
+
+export function useHotKey(updateGlobals) {
   useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === "Alt") {
+    const onKeyDown = (event) => {
+      if (!focusInInput(event) && event.key === "Alt") {
         updateGlobals({ measureEnabled: true });
       }
     };

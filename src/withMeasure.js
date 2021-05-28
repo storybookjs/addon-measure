@@ -3,6 +3,7 @@ import { useEffect, useGlobals } from "@storybook/addons";
 import { drawSelectedElement } from "./box-model/visualizer";
 import { init, destroy } from "./box-model/canvas";
 import { useHotKey } from "./useHotKey";
+import { deepElementFromPoint } from "./util";
 
 let nodeAtPointerRef;
 
@@ -12,10 +13,10 @@ export const withMeasure = (StoryFn) => {
   useHotKey(updateGlobals);
 
   useEffect(() => {
-    const onMouseOver = (e) => {
+    const onMouseOver = (event) => {
       window.requestAnimationFrame(() => {
-        e.stopPropagation();
-        nodeAtPointerRef = document.elementFromPoint(e.clientX, e.clientY);
+        event.stopPropagation();
+        nodeAtPointerRef = deepElementFromPoint(event.clientX, event.clientY);
         drawSelectedElement(nodeAtPointerRef);
       });
     };
