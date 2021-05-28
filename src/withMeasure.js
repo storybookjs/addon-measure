@@ -1,38 +1,22 @@
 /* eslint-env browser */
 import { useEffect, useGlobals } from "@storybook/addons";
 import { drawSelectedElement } from "./box-model/visualizer";
-import { init, destroy, clear } from "./box-model/canvas";
+import { init, destroy } from "./box-model/canvas";
+import { useHotKey } from "./useHotKey";
+import { deepElementFromPoint } from "./util";
 
 let nodeAtPointerRef;
 
 export const withMeasure = (StoryFn) => {
   const [{ measureEnabled }, updateGlobals] = useGlobals();
 
-  useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === "Alt") {
-        updateGlobals({ measureEnabled: true });
-      }
-    };
-
-    const onKeyUp = () => {
-      updateGlobals({ measureEnabled: false });
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("keyup", onKeyUp);
-
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("keyup", onKeyUp);
-    };
-  }, []);
+  useHotKey(updateGlobals);
 
   useEffect(() => {
-    const onMouseOver = (e) => {
+    const onMouseOver = (event) => {
       window.requestAnimationFrame(() => {
-        e.stopPropagation();
-        nodeAtPointerRef = document.elementFromPoint(e.clientX, e.clientY);
+        event.stopPropagation();
+        nodeAtPointerRef = deepElementFromPoint(event.clientX, event.clientY);
         drawSelectedElement(nodeAtPointerRef);
       });
     };
