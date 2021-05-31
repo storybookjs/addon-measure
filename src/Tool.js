@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useGlobals } from "@storybook/api";
 import { Icons, IconButton } from "@storybook/components";
 import { TOOL_ID } from "./constants";
@@ -15,7 +15,9 @@ export const Tool = () => {
     [measureEnabled]
   );
 
-  useHotKey(updateGlobals);
+  useEffect(() => {
+    return useHotKey(updateGlobals);
+  }, []);
 
   return (
     <IconButton
