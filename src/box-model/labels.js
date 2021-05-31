@@ -6,6 +6,8 @@ const colors = {
   text: "#232020",
 };
 
+const labelPadding = 6;
+
 function roundedRect(context, { x, y, w, h, r }) {
   x = x - w / 2;
   y = y - h / 2;
@@ -62,7 +64,7 @@ function offset(
   type,
   position,
   { margin, border, padding },
-  labelPadding,
+  labelPaddingSize,
   external
 ) {
   let shift = (v) => v;
@@ -73,7 +75,7 @@ function offset(
   // else keep them centred
   const locationMultiplier = external ? 1 : 0.5;
   // Account for padding within the label
-  const labelPaddingShift = external ? labelPadding * 2 : 0;
+  const labelPaddingShift = external ? labelPaddingSize * 2 : 0;
 
   if (type === "padding") {
     shift = (dir) => padding[dir] * locationMultiplier + labelPaddingShift;
@@ -108,7 +110,7 @@ function collide(a, b) {
   );
 }
 
-function overlapAdjustment(position, currentRect, prevRect, labelPadding) {
+function overlapAdjustment(position, currentRect, prevRect) {
   if (position === "top") {
     currentRect.y = prevRect.y - prevRect.h - labelPadding;
   } else if (position === "right") {
@@ -146,14 +148,14 @@ function textWithRect(context, type, { x, y, w, h }, text) {
   return { x, y, w, h };
 }
 
-function configureText(context, text, labelPadding) {
+function configureText(context, text) {
   context.font = "600 12px monospace";
   context.textBaseline = "middle";
   context.textAlign = "center";
 
   const metrics = context.measureText(text);
   let actualHeight =
-    metrics.fontBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+    metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
   const w = metrics.width + labelPadding * 2;
   const h = actualHeight + labelPadding * 2;
@@ -168,7 +170,6 @@ function drawLabel(
   prevRect,
   external = false
 ) {
-  const labelPadding = 4;
   let { x, y } = positionCoordinate(position, dimensions);
   const { offsetX, offsetY } = offset(
     type,
@@ -183,16 +184,11 @@ function drawLabel(
   x += offsetX;
   y += offsetY;
 
-  const { w, h } = configureText(context, text, labelPadding);
+  const { w, h } = configureText(context, text);
 
   // Adjust for overlap
   if (prevRect && collide({ x, y, w, h }, prevRect)) {
-    const adjusted = overlapAdjustment(
-      position,
-      { x, y, w, h },
-      prevRect,
-      labelPadding
-    );
+    const adjusted = overlapAdjustment(position, { x, y, w, h }, prevRect);
     x = adjusted.x;
     y = adjusted.y;
   }
@@ -200,7 +196,7 @@ function drawLabel(
   return textWithRect(context, type, { x, y, w, h }, text);
 }
 
-function floatingOffset(alignment, { w, h, labelPadding }) {
+function floatingOffset(alignment, { w, h }) {
   const deltaW = w * 0.5 + labelPadding;
   const deltaH = h * 0.5 + labelPadding;
 
@@ -211,19 +207,16 @@ function floatingOffset(alignment, { w, h, labelPadding }) {
 }
 
 export function drawFloatingLabel(context, dimensions, { type, text }) {
-  const labelPadding = 4;
-
   const { floatingAlignment, extremities } = dimensions;
 
   let x = extremities[floatingAlignment.x];
   let y = extremities[floatingAlignment.y];
 
-  const { w, h } = configureText(context, text, labelPadding);
+  const { w, h } = configureText(context, text);
 
   const { offsetX, offsetY } = floatingOffset(floatingAlignment, {
     w,
     h,
-    labelPadding,
   });
 
   x += offsetX;
