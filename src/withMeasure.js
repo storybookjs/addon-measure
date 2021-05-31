@@ -10,7 +10,9 @@ let nodeAtPointerRef;
 export const withMeasure = (StoryFn) => {
   const [{ measureEnabled }, updateGlobals] = useGlobals();
 
-  useHotKey(updateGlobals);
+  useEffect(() => {
+    return useHotKey(updateGlobals);
+  }, []);
 
   useEffect(() => {
     const onMouseOver = (event) => {
