@@ -1,3 +1,15 @@
+# v1.1.0 (Mon May 31 2021)
+
+#### 🚀 Enhancement
+
+- use the addon API for useEffect inside the decorator [#5](https://github.com/storybookjs/addon-measure/pull/5) ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### Authors: 1
+
+- Varun Vachhar ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+---
+
 # v1.0.0 (Mon May 31 2021)
 
 #### 💥 Breaking Change
