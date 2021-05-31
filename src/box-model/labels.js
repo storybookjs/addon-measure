@@ -168,7 +168,7 @@ function drawLabel(
   prevRect,
   external = false
 ) {
-  const labelPadding = 6;
+  const labelPadding = 4;
   let { x, y } = positionCoordinate(position, dimensions);
   const { offsetX, offsetY } = offset(
     type,
@@ -211,7 +211,7 @@ function floatingOffset(alignment, { w, h, labelPadding }) {
 }
 
 export function drawFloatingLabel(context, dimensions, { type, text }) {
-  const labelPadding = 6;
+  const labelPadding = 4;
 
   const { floatingAlignment, extremities } = dimensions;
 
