@@ -9,6 +9,43 @@
 
 #### ⚠️ Pushed to `main`
 
+- remove onlyPublishWithReleaseLabel option for auto ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- Add inspiration links ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- use the ruler icon ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- update readme ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- setup auto ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- update README ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- Add hotkey to trigger the addon ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- add resizing back in ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- inspect on hover ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- stacked labels ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- labels ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- margin labels ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- draw label ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- add wrapper to viz stories ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- setup chromatic ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- Add visualization stories ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- refactor drawBoxModel ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- basic implementation of the box model visualizer ([@winkerVSbecks](https://github.com/winkerVSbecks))
+- Initial commit ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### Authors: 1
+
+- Varun Vachhar ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+---
+
+# v1.0.0 (Mon May 31 2021)
+
+#### 💥 Breaking Change
+
+- Adjust label sizing [#4](https://github.com/storybookjs/addon-measure/pull/4) ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### 🐛 Bug Fix
+
+
+#### ⚠️ Pushed to `main`
+
 - Add inspiration links ([@winkerVSbecks](https://github.com/winkerVSbecks))
 - use the ruler icon ([@winkerVSbecks](https://github.com/winkerVSbecks))
 - update readme ([@winkerVSbecks](https://github.com/winkerVSbecks))
