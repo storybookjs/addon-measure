@@ -1,17 +1,17 @@
 function getDocumentWidthAndHeight() {
-  const body = document.body;
+  const container = document.documentElement;
 
-  const height = Math.max(body.scrollHeight, body.offsetHeight);
-  const width = Math.max(body.scrollWidth, body.offsetWidth);
+  const height = Math.max(container.scrollHeight, container.offsetHeight);
+  const width = Math.max(container.scrollWidth, container.offsetWidth);
   return { width, height };
 }
 
 function createCanvas() {
-  const { width, height } = getDocumentWidthAndHeight();
   const canvas = document.createElement("canvas");
   canvas.id = "storybook-addon-measure";
   const context = canvas.getContext("2d");
   // Set canvas width & height
+  const { width, height } = getDocumentWidthAndHeight();
   setCanvasWidthAndHeight(canvas, context, { width, height });
   // Position canvas
   canvas.style.position = "absolute";
@@ -52,13 +52,21 @@ export function clear() {
   }
 }
 
-export function draw(callback, scale = false) {
+export function draw(callback) {
   clear();
-  if (scale) {
-    setCanvasWidthAndHeight(state.canvas, state.context);
-  }
-
   callback(state.context);
+}
+
+export function rescale() {
+  // First reset so that the canvas size doesn't impact the container size
+  setCanvasWidthAndHeight(state.canvas, state.context, { width: 0, height: 0 });
+
+  const { width, height } = getDocumentWidthAndHeight();
+  setCanvasWidthAndHeight(state.canvas, state.context, { width, height });
+
+  // update state
+  state.width = width;
+  state.height = height;
 }
 
 export function destroy() {

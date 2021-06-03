@@ -11,7 +11,7 @@ const colors = {
   content: "#6fa8dca8",
 };
 
-const SMALL_NODE_SIZE = 40;
+const SMALL_NODE_SIZE = 30;
 
 function pxToNumber(px) {
   return parseInt(px.replace("px", ""));
@@ -302,7 +302,7 @@ function drawBoxModel(element) {
       const contentLabels = drawContent(context, dimensions);
 
       const externalLabels =
-        dimensions.width <= SMALL_NODE_SIZE * 2 ||
+        dimensions.width <= SMALL_NODE_SIZE * 3 ||
         dimensions.height <= SMALL_NODE_SIZE;
 
       labelStacks(
@@ -315,6 +315,6 @@ function drawBoxModel(element) {
   };
 }
 
-export function drawSelectedElement(element, scale) {
-  draw(drawBoxModel(element), scale);
+export function drawSelectedElement(element) {
+  draw(drawBoxModel(element));
 }

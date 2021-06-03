@@ -10,15 +10,15 @@ export default {
 
 const Template = (args) => <Visualization {...args} />;
 
-export const Everything40px = Template.bind({});
-Everything40px.args = {
+export const Everything30px = Template.bind({});
+Everything30px.args = {
   render: (ref) => (
     <div
       ref={ref}
       style={{
         outline: "1px solid black",
-        width: 40,
-        height: 40,
+        width: 30,
+        height: 30,
         margin: 32,
         padding: 16,
         border: "2px solid transparent",

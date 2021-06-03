@@ -2,7 +2,7 @@ export const deepElementFromPoint = (x, y) => {
   const element = document.elementFromPoint(x, y);
 
   const crawlShadows = (node) => {
-    if (node.shadowRoot) {
+    if (node && node.shadowRoot) {
       const nestedElement = node.shadowRoot.elementFromPoint(x, y);
 
       // Nested node is same as the root one

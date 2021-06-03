@@ -12,8 +12,10 @@ export function useHotKey(updateGlobals) {
     }
   };
 
-  const onKeyUp = () => {
-    updateGlobals({ measureEnabled: false });
+  const onKeyUp = (event) => {
+    if (event.key === "Alt") {
+      updateGlobals({ measureEnabled: false });
+    }
   };
 
   document.addEventListener("keydown", onKeyDown);

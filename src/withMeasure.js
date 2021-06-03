@@ -1,13 +1,13 @@
 /* eslint-env browser */
 import { useEffect, useGlobals } from "@storybook/addons";
 import { drawSelectedElement } from "./box-model/visualizer";
-import { init, destroy } from "./box-model/canvas";
+import { init, rescale, destroy } from "./box-model/canvas";
 import { useHotKey } from "./useHotKey";
 import { deepElementFromPoint } from "./util";
 
 let nodeAtPointerRef;
 
-export const withMeasure = (StoryFn) => {
+export const withMeasure = (StoryFn, context) => {
   const [{ measureEnabled }, updateGlobals] = useGlobals();
 
   useEffect(() => {
@@ -25,19 +25,19 @@ export const withMeasure = (StoryFn) => {
 
     const onResize = () => {
       window.requestAnimationFrame(() => {
-        drawSelectedElement(nodeAtPointerRef, true);
+        rescale();
       });
     };
 
     if (measureEnabled) {
       init();
       document.addEventListener("mouseover", onMouseOver);
-      document.addEventListener("resize", onResize);
+      window.addEventListener("resize", onResize);
     }
 
     return () => {
       document.removeEventListener("mouseover", onMouseOver);
-      document.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", onResize);
       destroy();
     };
   }, [measureEnabled]);
