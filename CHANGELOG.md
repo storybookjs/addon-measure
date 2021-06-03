@@ -1,3 +1,15 @@
+# v1.2.0 (Thu Jun 03 2021)
+
+#### 🚀 Enhancement
+
+- Fill visualization in the entire iframe and fix re-sizing [#7](https://github.com/storybookjs/addon-measure/pull/7) ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### Authors: 1
+
+- Varun Vachhar ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+---
+
 # v1.1.0 (Mon May 31 2021)
 
 #### 🚀 Enhancement
