@@ -1,3 +1,15 @@
+# v1.2.1 (Fri Jun 04 2021)
+
+#### 🐛 Bug Fix
+
+- Add build support for both cjs and esm [#8](https://github.com/storybookjs/addon-measure/pull/8) ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### Authors: 1
+
+- Varun Vachhar ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+---
+
 # v1.2.0 (Thu Jun 03 2021)
 
 #### 🚀 Enhancement
