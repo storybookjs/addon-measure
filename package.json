@@ -13,7 +13,9 @@
   },
   "author": "winkerVSbecks",
   "license": "MIT",
-  "main": "dist/preset",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/ts/index.d.ts",
   "files": [
     "dist/**/*",
     "README.md",
@@ -21,16 +23,19 @@
   ],
   "scripts": {
     "clean": "rimraf ./dist",
-    "buildBabel": "babel ./src --out-dir ./dist --extensions \".js,.jsx,.ts,.tsx\"",
-    "buildTsc": "tsc --declaration --emitDeclarationOnly --outDir ./dist",
-    "build": "concurrently \"yarn run buildBabel\" \"yarn run buildTsc\"",
-    "build:watch": "concurrently \"yarn run buildBabel -- --watch\" \"yarn run buildTsc -- --watch\"",
+    "buildBabel": "concurrently \"yarn buildBabel:cjs\" \"yarn buildBabel:esm\" \"yarn buildTsc\"",
+    "buildBabel:cjs": "babel ./src -d ./dist/cjs --extensions \".js,.jsx,.ts,.tsx\"",
+    "buildBabel:esm": "babel ./src -d ./dist/esm --env-name esm --extensions \".js,.jsx,.ts,.tsx\"",
+    "buildTsc": "tsc --declaration --emitDeclarationOnly --outDir ./dist/ts",
+    "prebuild": "yarn clean",
+    "build": "concurrently \"yarn buildBabel\" \"yarn buildTsc\"",
+    "build:watch": "concurrently \"yarn buildBabel:cjs -- --watch\" \"yarn buildTsc -- --watch\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
-    "start": "concurrently \"yarn run storybook -- --no-manager-cache --quiet\" \"yarn run build:watch\"",
+    "start": "concurrently \"yarn storybook -- --no-manager-cache --quiet\" \"yarn build:watch\"",
     "build-storybook": "build-storybook",
     "prerelease": "node check-metadata.js",
-    "release": "yarn run build && auto shipit"
+    "release": "yarn build && auto shipit"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
