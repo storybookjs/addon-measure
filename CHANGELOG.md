@@ -1,3 +1,15 @@
+# v1.2.2 (Fri Jun 04 2021)
+
+#### 🐛 Bug Fix
+
+- modify preset to actually support esm [#10](https://github.com/storybookjs/addon-measure/pull/10) ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### Authors: 1
+
+- Varun Vachhar ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+---
+
 # v1.2.1 (Fri Jun 04 2021)
 
 #### 🐛 Bug Fix
