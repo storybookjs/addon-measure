@@ -13,13 +13,14 @@
   },
   "author": "winkerVSbecks",
   "license": "MIT",
-  "main": "dist/cjs/preset",
-  "module": "dist/esm/preset",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/ts/index.d.ts",
   "files": [
     "dist/**/*",
     "README.md",
-    "*.js"
+    "*.js",
+    "*.d.ts"
   ],
   "scripts": {
     "clean": "rimraf ./dist",
@@ -29,7 +30,7 @@
     "buildTsc": "tsc --declaration --emitDeclarationOnly --outDir ./dist/ts",
     "prebuild": "yarn clean",
     "build": "concurrently \"yarn buildBabel\" \"yarn buildTsc\"",
-    "build:watch": "concurrently \"yarn buildBabel:cjs -- --watch\" \"yarn buildTsc -- --watch\"",
+    "build:watch": "concurrently \"yarn buildBabel:esm -- --watch\" \"yarn buildTsc -- --watch\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "start": "concurrently \"yarn build:watch\" \"yarn storybook -- --no-manager-cache --quiet\"",
