@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./Button";
 
 export default {
@@ -29,4 +29,17 @@ export const Small = Template.bind({});
 Small.args = {
   size: "small",
   label: "Button",
+};
+
+export const WithCounter = () => {
+  const [counter, setCounter] = useState(0);
+  const label = `Testing: ${counter}`;
+
+  return (
+    <Button
+      primary={true}
+      onClick={() => setCounter(counter + 1)}
+      label={label}
+    />
+  );
 };
