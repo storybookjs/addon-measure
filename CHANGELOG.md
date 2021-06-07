@@ -1,3 +1,15 @@
+# v1.2.3 (Mon Jun 07 2021)
+
+#### 🐛 Bug Fix
+
+- avoid passing updateGlobals outside of a hook [#11](https://github.com/storybookjs/addon-measure/pull/11) ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### Authors: 1
+
+- Varun Vachhar ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+---
+
 # v1.2.2 (Fri Jun 04 2021)
 
 #### 🐛 Bug Fix
