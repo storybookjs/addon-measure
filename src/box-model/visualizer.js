@@ -44,8 +44,14 @@ function floatingAlignment(extremities) {
 
 function measureElement(element) {
   const style = getComputedStyle(element);
-  let { top, left, right, bottom, width, height } =
-    element.getBoundingClientRect();
+  let {
+    top,
+    left,
+    right,
+    bottom,
+    width,
+    height,
+  } = element.getBoundingClientRect();
 
   const {
     marginTop,
@@ -293,7 +299,7 @@ function drawContent(context, { padding, border, width, height, top, left }) {
 
 function drawBoxModel(element) {
   return (context) => {
-    if (element) {
+    if (element && context) {
       const dimensions = measureElement(element);
 
       const marginLabels = drawMargin(context, dimensions);
