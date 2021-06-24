@@ -1,3 +1,15 @@
+# v1.3.0 (Thu Jun 24 2021)
+
+#### 🚀 Enhancement
+
+- update deps, prevent multi key combo trigger and measure on enable [#17](https://github.com/storybookjs/addon-measure/pull/17) ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### Authors: 1
+
+- Varun Vachhar ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+---
+
 # v1.2.4 (Tue Jun 15 2021)
 
 #### ⚠️ Pushed to `main`
