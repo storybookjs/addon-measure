@@ -1,3 +1,15 @@
+# v1.3.1 (Thu Jun 24 2021)
+
+#### 🐛 Bug Fix
+
+- remove stopPropagation [#18](https://github.com/storybookjs/addon-measure/pull/18) ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### Authors: 1
+
+- Varun Vachhar ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+---
+
 # v1.3.0 (Thu Jun 24 2021)
 
 #### 🚀 Enhancement
