@@ -7,6 +7,12 @@ import { useHotKey } from "./useHotKey";
 import { deepElementFromPoint } from "./util";
 
 let nodeAtPointerRef;
+const pointer = { x: 0, y: 0 };
+
+function findAndDrawElement(x, y) {
+  nodeAtPointerRef = deepElementFromPoint(x, y);
+  drawSelectedElement(nodeAtPointerRef);
+}
 
 export const withMeasure = (StoryFn, context) => {
   const { measureEnabled } = context.globals;
@@ -22,11 +28,26 @@ export const withMeasure = (StoryFn, context) => {
   }, []);
 
   useEffect(() => {
+    const onMouseMove = (event) => {
+      window.requestAnimationFrame(() => {
+        event.stopPropagation();
+        pointer.x = event.clientX;
+        pointer.y = event.clientY;
+      });
+    };
+
+    document.addEventListener("mousemove", onMouseMove);
+
+    return () => {
+      document.removeEventListener("mousemove", onMouseMove);
+    };
+  }, []);
+
+  useEffect(() => {
     const onMouseOver = (event) => {
       window.requestAnimationFrame(() => {
         event.stopPropagation();
-        nodeAtPointerRef = deepElementFromPoint(event.clientX, event.clientY);
-        drawSelectedElement(nodeAtPointerRef);
+        findAndDrawElement(event.clientX, event.clientY);
       });
     };
 
@@ -37,13 +58,14 @@ export const withMeasure = (StoryFn, context) => {
     };
 
     if (measureEnabled) {
-      init();
       document.addEventListener("mouseover", onMouseOver);
+      init();
       window.addEventListener("resize", onResize);
+      // Draw the element below the pointer when first enabled
+      findAndDrawElement(pointer.x, pointer.y);
     }
 
     return () => {
-      document.removeEventListener("mouseover", onMouseOver);
       window.removeEventListener("resize", onResize);
       destroy();
     };
