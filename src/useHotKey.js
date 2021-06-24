@@ -7,7 +7,6 @@ function focusInInput(event) {
 
 export function useHotKey(updateGlobals) {
   const onKeyDown = (event) => {
-    event.stopPropagation();
     if (!focusInInput(event) && event.altKey) {
       if (event.key === "Alt") {
         updateGlobals({ measureEnabled: true });
@@ -19,7 +18,6 @@ export function useHotKey(updateGlobals) {
 
   const onKeyUp = (event) => {
     if (event.key === "Alt") {
-      event.stopPropagation();
       updateGlobals({ measureEnabled: false });
     }
   };
