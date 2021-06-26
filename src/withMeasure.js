@@ -19,7 +19,11 @@ export const withMeasure = (StoryFn, context) => {
 
   const emit = useChannel({});
   const updateGlobals = useCallback(
-    (newGlobals) => emit(UPDATE_GLOBALS, { globals: newGlobals }),
+    (newGlobals) => {
+      if (newGlobals.measureEnabled !== context.globals.measureEnabled) {
+        emit(UPDATE_GLOBALS, { globals: newGlobals })
+      }
+    },
     [emit]
   );
 
