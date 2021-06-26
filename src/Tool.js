@@ -18,7 +18,7 @@ export const Tool = () => {
 
   useEffect(() => {
     api.setAddonShortcut(ADDON_ID, {
-      label: "Toggle Measure",
+      label: "Toggle Measure [M]",
       defaultShortcut: ["M"],
       actionName: "measure",
       showInMenu: false,
