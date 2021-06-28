@@ -1,3 +1,15 @@
+# v2.0.0 (Mon Jun 28 2021)
+
+#### 💥 Breaking Change
+
+- switch to the shortcuts API and use the M key to toggle measure [#21](https://github.com/storybookjs/addon-measure/pull/21) ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+#### Authors: 1
+
+- Varun Vachhar ([@winkerVSbecks](https://github.com/winkerVSbecks))
+
+---
+
 # v1.3.1 (Thu Jun 24 2021)
 
 #### 🐛 Bug Fix
