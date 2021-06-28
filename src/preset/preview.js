@@ -11,3 +11,7 @@
 import { withMeasure } from "../withMeasure";
 
 export const decorators = [withMeasure];
+
+export const globals = {
+  measureEnabled: false,
+};

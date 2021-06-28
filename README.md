@@ -4,10 +4,7 @@
 
 Storybook addon for inspecting layouts and visualizing the box model.
 
-1. Hold down the modifier key:
-
-- MacOS: <kbd>⌥ Option</kbd>
-- Windows: <kbd>Alt</kbd>
+1. Hold down the <kbd>m</kbd> key:
 
 2. Hover over a DOM node
 

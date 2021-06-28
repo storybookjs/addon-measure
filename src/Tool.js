@@ -1,23 +1,30 @@
 import React, { useCallback, useEffect } from "react";
-import { useGlobals } from "@storybook/api";
+import { useGlobals, useStorybookApi } from "@storybook/api";
 import { Icons, IconButton } from "@storybook/components";
-import { TOOL_ID } from "./constants";
-import { useHotKey } from "./useHotKey";
+import { TOOL_ID, ADDON_ID } from "./constants";
 
 export const Tool = () => {
-  const [{ measureEnabled }, updateGlobals] = useGlobals();
+  const [globals, updateGlobals] = useGlobals();
+  const { measureEnabled } = globals;
+  const api = useStorybookApi();
 
   const toggleMeasure = useCallback(
     () =>
       updateGlobals({
         measureEnabled: !measureEnabled,
       }),
-    [measureEnabled]
+    [updateGlobals, measureEnabled]
   );
 
   useEffect(() => {
-    return useHotKey(updateGlobals);
-  }, []);
+    api.setAddonShortcut(ADDON_ID, {
+      label: "Toggle Measure [M]",
+      defaultShortcut: ["M"],
+      actionName: "measure",
+      showInMenu: false,
+      action: toggleMeasure,
+    });
+  }, [toggleMeasure, api]);
 
   return (
     <IconButton

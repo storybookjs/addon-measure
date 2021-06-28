@@ -1,9 +1,7 @@
 /* eslint-env browser */
-import { useEffect, useChannel, useCallback } from "@storybook/addons";
-import { UPDATE_GLOBALS } from "@storybook/core-events";
+import { useEffect } from "@storybook/addons";
 import { drawSelectedElement } from "./box-model/visualizer";
 import { init, rescale, destroy } from "./box-model/canvas";
-import { useHotKey } from "./useHotKey";
 import { deepElementFromPoint } from "./util";
 
 let nodeAtPointerRef;
@@ -16,16 +14,6 @@ function findAndDrawElement(x, y) {
 
 export const withMeasure = (StoryFn, context) => {
   const { measureEnabled } = context.globals;
-
-  const emit = useChannel({});
-  const updateGlobals = useCallback(
-    (newGlobals) => emit(UPDATE_GLOBALS, { globals: newGlobals }),
-    [emit]
-  );
-
-  useEffect(() => {
-    return useHotKey(updateGlobals);
-  }, []);
 
   useEffect(() => {
     const onMouseMove = (event) => {
