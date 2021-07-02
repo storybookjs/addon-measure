@@ -246,7 +246,9 @@ export function labelStacks(
   externalLabels,
   tokens
 ) {
-  const labels = tokens ? tokenizeLabels(labelsIn, tokens) : labelsIn;
+  const labels = tokens
+    ? tokenizeLabels(dimensions, labelsIn, tokens)
+    : labelsIn;
 
   const stacks = labels.reduce((acc, l) => {
     if (!acc.hasOwnProperty(l.position)) {

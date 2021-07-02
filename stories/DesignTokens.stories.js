@@ -50,6 +50,42 @@ ThemeUIObjectScale.parameters = {
   },
 };
 
+export const PxUnits = Template.bind({});
+PxUnits.parameters = {
+  tokens: {
+    borderWidths: { sm: "1px", md: "3px", lg: "8px" },
+    sizes: { sm: "16px", md: "32px", lg: "64px", xl: "128px", xxl: "256px" },
+    space: { sm: "8px", md: "16px", lg: "32px", xl: "64px" },
+  },
+};
+
+export const RemUnits = Template.bind({});
+RemUnits.parameters = {
+  tokens: {
+    borderWidths: { sm: 1, md: 3, lg: 8 },
+    sizes: { sm: "1rem", md: "2rem", lg: "4rem", xl: "8rem", xxl: "16rem" },
+    space: { sm: "0.5rem", md: "1rem", lg: "2rem", xl: "4rem" },
+  },
+};
+
+export const EmUnits = Template.bind({});
+EmUnits.decorators = [
+  (Story) => (
+    // This will make the associated sizes or space token be "one step down" on
+    // the scale, relative to RemUnits
+    <div style={{ fontSize: "2rem" }}>
+      <Story />
+    </div>
+  ),
+];
+EmUnits.parameters = {
+  tokens: {
+    borderWidths: { sm: 1, md: 3, lg: 8 },
+    sizes: { sm: "1em", md: "2em", lg: "4em", xl: "8em", xxl: "16em" },
+    space: { sm: "0.5em", md: "1em", lg: "2em", xl: "4em" },
+  },
+};
+
 export const DisabledWithFalse = Template.bind({});
 DisabledWithFalse.storyName = "Disabled (with false)";
 DisabledWithFalse.parameters = {

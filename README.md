@@ -54,7 +54,7 @@ Storybook addon for inspecting layouts and visualizing the box model.
    }
    ```
 
-   > **Note**: Only pixel units are currently supported.
+   > **Note**: Only pixel (`px` or unitless), `rem`, and `em` units are currently supported.
 
 ### Inspiration
 
