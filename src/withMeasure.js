@@ -7,13 +7,27 @@ import { deepElementFromPoint } from "./util";
 let nodeAtPointerRef;
 const pointer = { x: 0, y: 0 };
 
-function findAndDrawElement(x, y) {
+function findAndDrawElement(x, y, tokens) {
   nodeAtPointerRef = deepElementFromPoint(x, y);
-  drawSelectedElement(nodeAtPointerRef);
+  drawSelectedElement(nodeAtPointerRef, tokens);
 }
 
 export const withMeasure = (StoryFn, context) => {
   const { measureEnabled } = context.globals;
+  const {
+    measure: measureParam = {},
+    tokens: tokensParam,
+  } = context.parameters;
+
+  const measureTokensParam = measureParam.tokens;
+  let tokens;
+  if (measureTokensParam === false) {
+    tokens = false;
+  } else if (measureTokensParam && measureTokensParam.disable) {
+    tokens = false;
+  } else {
+    tokens = tokensParam;
+  }
 
   useEffect(() => {
     const onMouseMove = (event) => {
@@ -35,7 +49,7 @@ export const withMeasure = (StoryFn, context) => {
     const onMouseOver = (event) => {
       window.requestAnimationFrame(() => {
         event.stopPropagation();
-        findAndDrawElement(event.clientX, event.clientY);
+        findAndDrawElement(event.clientX, event.clientY, tokens);
       });
     };
 
@@ -50,14 +64,14 @@ export const withMeasure = (StoryFn, context) => {
       init();
       window.addEventListener("resize", onResize);
       // Draw the element below the pointer when first enabled
-      findAndDrawElement(pointer.x, pointer.y);
+      findAndDrawElement(pointer.x, pointer.y, tokens);
     }
 
     return () => {
       window.removeEventListener("resize", onResize);
       destroy();
     };
-  }, [measureEnabled]);
+  }, [measureEnabled, tokens]);
 
   return StoryFn();
 };

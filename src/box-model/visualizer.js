@@ -297,7 +297,7 @@ function drawContent(context, { padding, border, width, height, top, left }) {
   ];
 }
 
-function drawBoxModel(element) {
+function drawBoxModel(element, tokens) {
   return (context) => {
     if (element && context) {
       const dimensions = measureElement(element);
@@ -315,12 +315,13 @@ function drawBoxModel(element) {
         context,
         dimensions,
         [...contentLabels, ...paddingLabels, ...borderLabels, ...marginLabels],
-        externalLabels
+        externalLabels,
+        tokens
       );
     }
   };
 }
 
-export function drawSelectedElement(element) {
-  draw(drawBoxModel(element));
+export function drawSelectedElement(element, tokens) {
+  draw(drawBoxModel(element, tokens));
 }
