@@ -54,6 +54,21 @@ Storybook addon for inspecting layouts and visualizing the box model.
    }
    ```
 
+   Alternatively, you can use your own token scale keys if you also provide a `scaleMap` property, to map dimensions to the appropriate scale:
+
+   ```js
+   {
+     "border.width": [1, 3, 8],
+     size: [8, 16, 32, 64, 128, 256],
+     scaleMap: {
+       border: "border.width",
+       content: "size",
+       margin: "size",
+       padding: "size",
+    },
+   }
+   ```
+
    > **Note**: Only pixel (`px` or unitless), `rem`, and `em` units are currently supported.
 
 ### Inspiration

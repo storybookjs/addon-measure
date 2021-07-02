@@ -1,6 +1,6 @@
 import { pxToNumber, round } from "../util";
 
-const scaleMap = {
+const defaultScaleMap = {
   border: "borderWidths",
   content: "sizes",
   margin: "space",
@@ -45,18 +45,20 @@ function normalizeValue(value, elementFontSize) {
   return newValue.toString();
 }
 
-export function tokenizeLabels({ fontSize: elementFontSize }, labels, tokens) {
+export function tokenizeLabels(
+  { fontSize: elementFontSize },
+  labels,
+  { scaleMap = defaultScaleMap, ...tokens }
+) {
   return labels.map((label) => {
     const { text, type } = label;
     const scaleKey = scaleMap[type];
     const scale = scaleKey && tokens[scaleKey];
 
     if (!scale) {
-      // TODO: Warn about bad schema?
       return label;
     }
 
-    // TODO: memoize?
     const scaleLookup = Object.entries(scale).reduce(
       (acc, [tokenKey, value]) => {
         const lookupKey = normalizeValue(value, elementFontSize);

@@ -86,6 +86,20 @@ EmUnits.parameters = {
   },
 };
 
+export const CustomScaleMap = Template.bind({});
+CustomScaleMap.parameters = {
+  tokens: {
+    "border.width": [1, 3, 8],
+    size: [8, 16, 32, 64, 128, 256],
+    scaleMap: {
+      border: "border.width",
+      content: "size",
+      margin: "size",
+      padding: "size",
+    },
+  },
+};
+
 export const DisabledWithFalse = Template.bind({});
 DisabledWithFalse.storyName = "Disabled (with false)";
 DisabledWithFalse.parameters = {
