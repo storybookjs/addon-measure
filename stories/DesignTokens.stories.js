@@ -100,6 +100,13 @@ CustomScaleMap.parameters = {
   },
 };
 
+export const DuplicateScaleValues = Template.bind({});
+DuplicateScaleValues.parameters = {
+  tokens: {
+    space: { md: 16, lg1: 32, lg2: 32 },
+  },
+};
+
 export const DisabledWithFalse = Template.bind({});
 DisabledWithFalse.storyName = "Disabled (with false)";
 DisabledWithFalse.parameters = {

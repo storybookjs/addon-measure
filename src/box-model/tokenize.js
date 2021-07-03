@@ -62,9 +62,11 @@ export function tokenizeLabels(
     const scaleLookup = Object.entries(scale).reduce(
       (acc, [tokenKey, value]) => {
         const lookupKey = normalizeValue(value, elementFontSize);
-        acc[lookupKey] = Array.isArray(scale)
-          ? `${scaleKey}[${tokenKey}]`
-          : `${scaleKey}.${tokenKey}`;
+        if (!acc.hasOwnProperty(lookupKey)) {
+          acc[lookupKey] = Array.isArray(scale)
+            ? `${scaleKey}[${tokenKey}]`
+            : `${scaleKey}.${tokenKey}`;
+        }
         return acc;
       },
       {}
