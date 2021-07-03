@@ -37,7 +37,7 @@ ThemeUIArrayScale.parameters = {
   tokens: {
     borderWidths: [1, 3, 8],
     sizes: [16, 32, 64, 128, 256],
-    space: [8, 16, 32, 64],
+    space: [4, 8, 16, 32, 64],
   },
 };
 
@@ -46,7 +46,7 @@ ThemeUIObjectScale.parameters = {
   tokens: {
     borderWidths: { sm: 1, md: 3, lg: 8 },
     sizes: { sm: 16, md: 32, lg: 64, xl: 128, xxl: 256 },
-    space: { sm: 8, md: 16, lg: 32, xl: 64 },
+    space: { xxs: 4, xs: 8, sm: 16, md: 32, lg: 64 },
   },
 };
 
@@ -55,7 +55,7 @@ PxUnits.parameters = {
   tokens: {
     borderWidths: { sm: "1px", md: "3px", lg: "8px" },
     sizes: { sm: "16px", md: "32px", lg: "64px", xl: "128px", xxl: "256px" },
-    space: { sm: "8px", md: "16px", lg: "32px", xl: "64px" },
+    space: { xxs: "4px", xs: "8px", sm: "16px", md: "32px", lg: "64px" },
   },
 };
 
@@ -64,7 +64,7 @@ RemUnits.parameters = {
   tokens: {
     borderWidths: { sm: 1, md: 3, lg: 8 },
     sizes: { sm: "1rem", md: "2rem", lg: "4rem", xl: "8rem", xxl: "16rem" },
-    space: { sm: "0.5rem", md: "1rem", lg: "2rem", xl: "4rem" },
+    space: { xxs: "0.25rem", xs: "0.5rem", sm: "1rem", md: "2rem", lg: "4rem" },
   },
 };
 
@@ -82,7 +82,7 @@ EmUnits.parameters = {
   tokens: {
     borderWidths: { sm: 1, md: 3, lg: 8 },
     sizes: { sm: "1em", md: "2em", lg: "4em", xl: "8em", xxl: "16em" },
-    space: { sm: "0.5em", md: "1em", lg: "2em", xl: "4em" },
+    space: { xxs: "0.25em", xs: "0.5em", sm: "1em", md: "2em", lg: "4em" },
   },
 };
 
@@ -90,7 +90,7 @@ export const CustomScaleMap = Template.bind({});
 CustomScaleMap.parameters = {
   tokens: {
     "border.width": [1, 3, 8],
-    size: [8, 16, 32, 64, 128, 256],
+    size: [4, 8, 16, 32, 64, 128, 256],
     scaleMap: {
       border: "border.width",
       content: "size",
@@ -103,7 +103,7 @@ CustomScaleMap.parameters = {
 export const DuplicateScaleValues = Template.bind({});
 DuplicateScaleValues.parameters = {
   tokens: {
-    space: { md: 16, lg1: 32, lg2: 32 },
+    space: { sm: 16, md1: 32, md2: 32 },
   },
 };
 
@@ -114,7 +114,7 @@ DisabledWithFalse.parameters = {
   tokens: {
     borderWidths: { sm: 1, md: 3, lg: 8 },
     sizes: { sm: 16, md: 32, lg: 64, xl: 128, xxl: 256 },
-    space: { sm: 8, md: 16, lg: 32, xl: 64 },
+    space: { xxs: 4, xs: 8, sm: 16, md: 32, lg: 64 },
   },
 };
 
@@ -125,6 +125,6 @@ DisabledWithDisableTrue.parameters = {
   tokens: {
     borderWidths: { sm: 1, md: 3, lg: 8 },
     sizes: { sm: 16, md: 32, lg: 64, xl: 128, xxl: 256 },
-    space: { sm: 8, md: 16, lg: 32, xl: 64 },
+    space: { xxs: 4, xs: 8, sm: 16, md: 32, lg: 64 },
   },
 };

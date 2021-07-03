@@ -40,7 +40,7 @@ Storybook addon for inspecting layouts and visualizing the box model.
    {
      borderWidths: { sm: 1, md: 3, lg: 8 },
      sizes: { sm: 16, md: 32, lg: 64, xl: 128, xxl: 256 },
-     space: { sm: 8, md: 16, lg: 32, xl: 64 },
+     space: { xxs: 4, xs: 8, sm: 16, md: 32, lg: 64 },
    }
    ```
 
@@ -50,7 +50,7 @@ Storybook addon for inspecting layouts and visualizing the box model.
    {
      borderWidths: [1, 3, 8],
      sizes: [16, 32, 64, 128, 256],
-     space: [8, 16, 32, 64],
+     space: [4, 8, 16, 32, 64],
    }
    ```
 
@@ -59,7 +59,7 @@ Storybook addon for inspecting layouts and visualizing the box model.
    ```js
    {
      "border.width": [1, 3, 8],
-     size: [8, 16, 32, 64, 128, 256],
+     size: [4, 8, 16, 32, 64, 128, 256],
      scaleMap: {
        border: "border.width",
        content: "size",
