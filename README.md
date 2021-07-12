@@ -1,6 +1,6 @@
-<img src="https://user-images.githubusercontent.com/42671/119589951-dbcd9600-bda1-11eb-9227-078f3cfc1e74.png" width="200" height="200">
+⚠️ MOVED: This addon was moved to the [Storybook monorepo](https://github.com/storybookjs/storybook/tree/next/addons/measure)
 
-# Storybook Addon Measure
+# Storybook Addon Measure (moved)
 
 Storybook addon for inspecting layouts and visualizing the box model.
 
