@@ -26,3 +26,11 @@ export const deepElementFromPoint = (x, y) => {
 
   return shadowElement || element;
 };
+
+export function pxToNumber(value) {
+  return parseInt(value.replace("px", ""));
+}
+
+export function round(value) {
+  return Number.isInteger(value) ? value : value.toFixed(2);
+}

@@ -1,6 +1,7 @@
 /**
  * Based on https://gist.github.com/awestbro/e668c12662ad354f02a413205b65fce7
  */
+import { pxToNumber, round } from "../util";
 import { draw } from "./canvas";
 import { labelStacks } from "./labels";
 
@@ -12,14 +13,6 @@ const colors = {
 };
 
 const SMALL_NODE_SIZE = 30;
-
-function pxToNumber(px) {
-  return parseInt(px.replace("px", ""));
-}
-
-function round(value) {
-  return Number.isInteger(value) ? value : value.toFixed(2);
-}
 
 function floatingAlignment(extremities) {
   const windowExtremities = {
@@ -66,6 +59,7 @@ function measureElement(element) {
     borderTopWidth,
     borderLeftWidth,
     borderRightWidth,
+    fontSize,
   } = style;
 
   top = top + window.scrollY;
@@ -111,6 +105,7 @@ function measureElement(element) {
     right,
     width,
     height,
+    fontSize: pxToNumber(fontSize),
     extremities,
     floatingAlignment: floatingAlignment(extremities),
   };
@@ -297,7 +292,7 @@ function drawContent(context, { padding, border, width, height, top, left }) {
   ];
 }
 
-function drawBoxModel(element) {
+function drawBoxModel(element, tokens) {
   return (context) => {
     if (element && context) {
       const dimensions = measureElement(element);
@@ -315,12 +310,13 @@ function drawBoxModel(element) {
         context,
         dimensions,
         [...contentLabels, ...paddingLabels, ...borderLabels, ...marginLabels],
-        externalLabels
+        externalLabels,
+        tokens
       );
     }
   };
 }
 
-export function drawSelectedElement(element) {
-  draw(drawBoxModel(element));
+export function drawSelectedElement(element, tokens) {
+  draw(drawBoxModel(element, tokens));
 }

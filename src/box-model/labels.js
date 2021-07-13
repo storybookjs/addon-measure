@@ -1,3 +1,5 @@
+import { tokenizeLabels } from "./tokenize";
+
 const colors = {
   margin: "#f6b26b",
   border: "#ffe599",
@@ -237,7 +239,17 @@ function drawStack(context, dimensions, stack, external) {
   });
 }
 
-export function labelStacks(context, dimensions, labels, externalLabels) {
+export function labelStacks(
+  context,
+  dimensions,
+  labelsIn,
+  externalLabels,
+  tokens
+) {
+  const labels = tokens
+    ? tokenizeLabels(dimensions, labelsIn, tokens)
+    : labelsIn;
+
   const stacks = labels.reduce((acc, l) => {
     if (!acc.hasOwnProperty(l.position)) {
       acc[l.position] = [];

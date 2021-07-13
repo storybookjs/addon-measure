@@ -10,6 +10,8 @@ Storybook addon for inspecting layouts and visualizing the box model.
 
 3. Storybook will display the dimensions of the selected element—margin, padding, border, width and height—in pixels.
 
+4. If you provide design tokens, the relevant token name will display alongside the measurement.
+
 ![](https://user-images.githubusercontent.com/42671/119589961-dff9b380-bda1-11eb-9550-7ae28bc70bf4.gif)
 
 ## Usage
@@ -18,17 +20,56 @@ Storybook addon for inspecting layouts and visualizing the box model.
 
 2. Install the addon:
 
-```sh
-npm i -D @storybook/addon-measure
-```
+   ```sh
+   npm i -D @storybook/addon-measure
+   ```
 
 3. Add `"@storybook/addon-measure"` to the addons array in your `.storybook/main.js`:
 
-```js
-module.exports = {
-  addons: ["@storybook/addon-measure"],
-};
-```
+   ```js
+   module.exports = {
+     addons: ["@storybook/addon-measure"],
+   };
+   ```
+
+4. (Optional) Provide design tokens
+
+   Set the `tokens` parameter ([how?](https://storybook.js.org/docs/react/writing-stories/parameters)) to an object with this shape:
+
+   ```js
+   {
+     borderWidths: { sm: 1, md: 3, lg: 8 },
+     sizes: { sm: 16, md: 32, lg: 64, xl: 128, xxl: 256 },
+     space: { xxs: 4, xs: 8, sm: 16, md: 32, lg: 64 },
+   }
+   ```
+
+   Token scale arrays are also supported:
+
+   ```js
+   {
+     borderWidths: [1, 3, 8],
+     sizes: [16, 32, 64, 128, 256],
+     space: [4, 8, 16, 32, 64],
+   }
+   ```
+
+   Alternatively, you can use your own token scale keys if you also provide a `scaleMap` property, to map dimensions to the appropriate scale:
+
+   ```js
+   {
+     "border.width": [1, 3, 8],
+     size: [4, 8, 16, 32, 64, 128, 256],
+     scaleMap: {
+       border: "border.width",
+       content: "size",
+       margin: "size",
+       padding: "size",
+    },
+   }
+   ```
+
+   > **Note**: Only pixel (`px` or unitless), `rem`, and `em` units are currently supported.
 
 ### Inspiration
 
